@@ -3,11 +3,11 @@
     <img alt="planit" class="logo" src="../assets/logo.png" />
     <div id="links">
       <div class="nav-item">
-        <router-link to="/dashboard">Home</router-link>
+        <router-link to="/">Info</router-link>
       </div>
 
       <div v-if="!isUserLoggedIn" class="nav-item">
-        <router-link to="/">Dashboard</router-link>
+        <router-link to="/dashboard">Dashboard</router-link>
       </div>
 
       <div v-if="!isUserLoggedIn" class="nav-item">
