@@ -7,7 +7,7 @@
       v-on:start-input="start => onStartInput(start)"
       v-on:end-input="end => onEndInput(end)"
     />
-    <button type="button">Submit</button>
+    <button type="button" v-on:click="onClick()">Submit</button>
   </div>
 </template>
 
@@ -46,6 +46,13 @@ export default {
         const startDate = new Date(this.tripStart);
         const endDate = new Date(this.tripEnd);
         this.duration = (endDate.getTime() - startDate.getTime()) / 86400000;
+      }
+    },
+    onClick() {
+      if (this.tripLocation && this.tripStart && this.tripEnd) {
+        localStorage.tripLocation = this.tripLocation;
+        localStorage.tripStart = this.tripStart;
+        localStorage.tripEnd = this.tripEnd;
       }
     }
   }

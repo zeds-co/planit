@@ -2,8 +2,10 @@
   <div class="headerWrap">
     <div class="header">
       <div class="locationWrap">
-        <div class="location">{{ location }}</div>
-        <div class="term">{{ term }} DAY TRIP ( {{ date }} )</div>
+        <div class="location">{{ tripLocation }}</div>
+        <div class="term">
+          {{ duration }} DAY TRIP ( {{ `${this.tripStart}-${this.tripEnd}` }} )
+        </div>
       </div>
       <div class="exchangeWrap">
         <div class="exchange">1 CNY = 15.4621 JPY</div>
@@ -17,10 +19,19 @@
 export default {
   name: "Tripsummary",
   data: () => ({
-    location: "Shanghai",
-    term: 3,
-    date: "12/27/2019 - 12/29/2019"
-  })
+    tripLocation: null,
+    tripStart: null,
+    tripEnd: null,
+    duration: null
+  }),
+  mounted() {
+    this.tripLocation = localStorage.tripLocation;
+    this.tripStart = localStorage.tripStart;
+    this.tripEnd = localStorage.tripEnd;
+    const start = new Date(localStorage.tripStart);
+    const end = new Date(localStorage.tripEnd);
+    this.duration = (end.getTime() - start.getTime()) / 86400000;
+  }
 };
 </script>
 
