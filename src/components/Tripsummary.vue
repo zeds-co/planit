@@ -2,7 +2,7 @@
   <div class="headerWrap">
     <div class="header">
       <div class="locationWrap">
-        <div class="location">{{ tripLocation }}</div>
+        <div class="location">{{ `${city}, ${country}` }}</div>
         <div class="term">
           {{ duration }} DAY TRIP ( {{ `${this.tripStart}-${this.tripEnd}` }} )
         </div>
@@ -19,13 +19,15 @@
 export default {
   name: "Tripsummary",
   data: () => ({
-    tripLocation: null,
+    country: null,
+    city: null,
     tripStart: null,
     tripEnd: null,
     duration: null
   }),
   mounted() {
-    this.tripLocation = localStorage.tripLocation;
+    this.country = localStorage.country;
+    this.city = localStorage.city;
     this.tripStart = localStorage.tripStart;
     this.tripEnd = localStorage.tripEnd;
     const start = new Date(localStorage.tripStart);

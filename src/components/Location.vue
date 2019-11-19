@@ -1,12 +1,20 @@
 <template>
   <div class="location">
-    <label for="location">Where are you going?</label>
+    <label for="country">Country:</label>
     <input
       type="text"
-      id="location"
-      name="trip-location"
+      id="country"
+      name="trip-country"
       size="15"
-      @change="e => onChange(e.target.value)"
+      @change="e => onCountryChange(e.target.value)"
+    />
+    <label for="city">City:</label>
+    <input
+      type="text"
+      id="city"
+      name="trip-city"
+      size="15"
+      @change="e => onCityChange(e.target.value)"
     />
   </div>
 </template>
@@ -15,8 +23,11 @@
 export default {
   name: "Location",
   methods: {
-    onChange(location) {
-      this.$emit("location-change", location);
+    onCountryChange(country) {
+      this.$emit("country-change", country);
+    },
+    onCityChange(city) {
+      this.$emit("city-change", city);
     }
   }
 };
