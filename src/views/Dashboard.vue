@@ -1,83 +1,19 @@
 <template>
   <div class="dashboard">
-    <div class="header">
-      <div class="locationWrap">
-        <div class="location">{{ location }}</div>
-        <div class="term">{{ term }} DAY TRIP ( {{ date }} )</div>
-      </div>
-      <div class="exchangeWrap">
-        <div class="exchange">1 CNY = 15.4621 JPY</div>
-        <div class="exchange">100 JPY = 6.46743 CNY</div>
-      </div>
-    </div>
-    <div class="contents">
-      <div class="dayWrap">
-        <div class="dayHeader">
-          <div class="day">DAY1 (12/27/2019)</div>
-          <div class="weather">SUNNY</div>
-        </div>
-        <div class="itineraryWrap">
-          <div class="itinerary">
-            <button class="addBtn" v-on:click="addPlan">+</button>
-          </div>
-          <div class="itinerary">
-            <button class="addBtn" v-on:click="addPlan">+</button>
-          </div>
-          <div class="itinerary">
-            <button class="addBtn" v-on:click="addPlan">+</button>
-          </div>
-        </div>
-      </div>
-      <div class="dayWrap">
-        <div class="dayHeader">
-          <div class="day">DAY2 (12/28/2019)</div>
-          <div class="weather">SNOW</div>
-        </div>
-        <div class="itineraryWrap">
-          <div class="itinerary">
-            <button class="addBtn" v-on:click="addPlan">+</button>
-          </div>
-          <div class="itinerary">
-            <button class="addBtn" v-on:click="addPlan">+</button>
-          </div>
-          <div class="itinerary">
-            <button class="addBtn" v-on:click="addPlan">+</button>
-          </div>
-        </div>
-      </div>
-      <div class="dayWrap">
-        <div class="dayHeader">
-          <div class="day">DAY3 (12/29/2019)</div>
-          <div class="weather">SNOW</div>
-        </div>
-        <div class="itineraryWrap">
-          <div class="itinerary">
-            <button class="addBtn" v-on:click="addPlan">+</button>
-          </div>
-          <div class="itinerary">
-            <button class="addBtn" v-on:click="addPlan">+</button>
-          </div>
-          <div class="itinerary">
-            <button class="addBtn" v-on:click="addPlan">+</button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <tripsummary />
+    <days />
   </div>
 </template>
 
 <script>
+import Tripsummary from "../components/Tripsummary";
+import Days from "../components/Days";
+
 export default {
   name: "Dashboard",
-  data: () => ({
-    location: "Shanghai",
-    term: 3,
-    date: "12/27/2019 - 12/29/2019"
-  }),
-  methods: {
-    addPlan() {
-      // store.commit("Click Add Button");
-    }
+  components: {
+    tripsummary: Tripsummary,
+    days: Days
   }
 };
 </script>
@@ -85,7 +21,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .dashboard {
-  padding: 4rem;
+  padding: 2rem;
 }
 .header {
   display: flex;

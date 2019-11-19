@@ -41,7 +41,6 @@ export default {
 <style scoped>
 .navbar {
   height: 100px;
-  background-color: $navbar-color;
   box-sizing: border-box;
   border-bottom: 1px solid #eaecef;
   display: flex;
