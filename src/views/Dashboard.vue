@@ -69,11 +69,11 @@
 <script>
 export default {
   name: "Dashboard",
-  props: {
-    location: String,
-    term: String,
-    date: String
-  },
+  data: () => ({
+    location: "Shanghai",
+    term: 3,
+    date: "12/27/2019 - 12/29/2019"
+  }),
   methods: {
     addPlan() {
       // store.commit("Click Add Button");
@@ -85,7 +85,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .dashboard {
-  padding: 10px;
+  padding: 4rem;
 }
 .header {
   display: flex;
