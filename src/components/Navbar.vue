@@ -6,15 +6,15 @@
         <router-link to="/">Info</router-link>
       </div>
 
-      <div v-if="!isUserLoggedIn" class="nav-item">
+      <div class="nav-item">
         <router-link to="/dashboard">Dashboard</router-link>
       </div>
 
-      <div v-if="!isUserLoggedIn" class="nav-item">
+      <div class="nav-item">
         <router-link to="/login">Login</router-link>
       </div>
 
-      <div v-if="isUserLoggedIn" class="nav-item">
+      <div class="nav-item">
         <a>Logout</a>
       </div>
 
