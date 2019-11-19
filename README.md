@@ -1,24 +1,24 @@
-# planit
+# planit: straight forward trip itinerary 
 
-## Project setup
+##  setup
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+### compiles and hot-reloads for development
 ```
 yarn serve
 ```
 
-### Compiles and minifies for production
+### compiles and minifies for production
 ```
 yarn build
 ```
 
-### Lints and fixes files
+### lints and fixes files
 ```
 yarn lint
 ```
 
-### Customize configuration
+### customize config
 See [Configuration Reference](https://cli.vuejs.org/config/).
