@@ -1,27 +1,34 @@
 <template>
   <div id="app">
-    <dashboard location="Shanghai" term="3" date="12/27/2019 - 12/29/2019" />
+    <navbar></navbar>
+    <router-view />
+    <!-- if user is not logged in, show login -->
+    <!-- if user is logged in  show dashboard -->
   </div>
 </template>
 
 <script>
-import Dashboard from "./components/Dashboard";
+import Navbar from "./components/Navbar";
 
 export default {
   name: "app",
   components: {
-    dashboard: Dashboard
+    navbar: Navbar
   }
 };
 </script>
 
 <style>
+* {
+  box-sizing: border-box;
+}
+
 body {
-  margin: 0;
-  padding: 0;
+  margin: 1rem;
+  /* padding: 1rem; */
 }
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: Arial;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
