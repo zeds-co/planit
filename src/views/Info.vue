@@ -1,18 +1,12 @@
 <template>
-  <div class="login">
-    <h3>Login</h3>
-    <input type="text" placeholder="email" />
-    <br />
-    <input type="text" placeholder="password" />
-    <br />
-    <button>connection</button>
-    <p>don't have an account? create one</p>
+  <div class="info">
+    <h3>Info</h3>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Login",
+  name: "Info",
   data() {
     return {};
   },
