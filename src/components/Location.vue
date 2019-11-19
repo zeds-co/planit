@@ -1,6 +1,6 @@
 <template>
   <div class="location">
-    <label for="location">Where are you going?</label>
+    <h2>Where are you going?</h2>
     <input
       type="text"
       id="location"
@@ -23,4 +23,30 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped></style>
+<style scoped>
+#location {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.location {
+  margin: 2rem;
+}
+
+label {
+  font-size: 18pt;
+  margin: 1rem;
+}
+
+input {
+  width: 300px;
+  margin: 1rem;
+}
+
+h2 {
+  text-align: center;
+}
+</style>
