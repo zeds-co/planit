@@ -47,10 +47,7 @@
         </div>
       </div>
     </div>
-    <popup
-      v-show="this.showPopUp === true"
-      v-on:closePopUp="openPopUp(false)"
-    />
+    <popup v-show="this.showPopUp === true" v-on:closePopUp="closePopUp" />
   </div>
 </template>
 
@@ -66,8 +63,12 @@ export default {
     showPopUp: false
   }),
   methods: {
-    openPopUp(isOpen) {
-      this.showPopUp = isOpen;
+    openPopUp() {
+      this.showPopUp = true;
+    },
+    closePopUp(plan) {
+      this.showPopUp = false;
+      alert(plan);
     }
   }
 };

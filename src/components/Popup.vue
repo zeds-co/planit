@@ -3,7 +3,7 @@
     <div class="popUp">
       <div>Please input ...</div>
       <p>
-        <input class="popupInput" type="text" />
+        <input class="popupInput" type="text" id="planText" />
       </p>
       <p><button v-on:click="closePopUp" class="okBtn">OK</button></p>
     </div>
@@ -13,9 +13,14 @@
 <script>
 export default {
   name: "Popup",
+  props: {
+    itinerarys: []
+  },
   methods: {
     closePopUp() {
-      this.$emit("closePopUp");
+      const plan = document.getElementById("planText").value;
+      this.$emit("closePopUp", plan);
+      document.getElementById("planText").value = "";
     }
   }
 };
