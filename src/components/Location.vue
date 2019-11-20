@@ -1,22 +1,24 @@
 <template>
-  <div class="location">
-    <h2>Where are you going?</h2>
-    <label for="city">City:</label>
-    <input
-      type="text"
-      id="city"
-      name="trip-city"
-      size="15"
-      @change="e => onCityChange(e.target.value)"
-    />
-    <label for="country">Country:</label>
-    <input
-      type="text"
-      id="country"
-      name="trip-country"
-      size="15"
-      @change="e => onCountryChange(e.target.value)"
-    />
+  <div class="locationWrap">
+    <h1>Where is your destination?</h1>
+    <div class="location">
+      <input
+        type="text"
+        placeholder="CITY"
+        id="city"
+        name="trip-city"
+        size="15"
+        @change="e => onCityChange(e.target.value)"
+      />
+      <input
+        placeholder="COUNTRY"
+        type="text"
+        id="country"
+        name="trip-country"
+        size="15"
+        @change="e => onCountryChange(e.target.value)"
+      />
+    </div>
   </div>
 </template>
 
@@ -44,8 +46,14 @@ export default {
   flex-direction: column;
 }
 
-.location {
+.locationWrap {
   margin: 2rem;
+}
+.location {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 label {
@@ -56,6 +64,10 @@ label {
 input {
   width: 300px;
   margin: 1rem;
+}
+
+h1 {
+  text-align: center;
 }
 
 h2 {
