@@ -53,15 +53,33 @@
 
 <script>
 import Popup from "./Popup";
-
+import axios from "axios";
 export default {
   name: "Days",
   components: {
     popup: Popup
   },
   data: () => ({
-    showPopUp: false
+    showPopUp: false,
+    data: null
   }),
+  mounted: () => {
+    axios
+    .get("https://community-open-weather-map.p.rapidapi.com/forecast/daily",
+    { params: 
+      {"q": "san francisco,us",
+      "lat": "35",
+      "lon": "139",
+      "cnt": "10",
+      "units": "metric or imperial"
+      },
+      header:
+      {"x-rapidapi-host": "community-open-weather-map.p.rapidapi.com",
+      "x-rapidapi-key": "b6e4f9fc03msh80db2bc55980af4p181a67jsnb4b3c557714d"
+      }
+    })
+    .then(response => this.data = response);
+  },
   methods: {
     openPopUp() {
       this.showPopUp = true;
