@@ -83,11 +83,11 @@ export default {
   flex: 0 0 350px;
 }
 .itineraryWrap {
-  background: rgb(255, 175, 184);
+  background: rgb(156, 169, 248);
   background: linear-gradient(
     3deg,
-    rgba(255, 175, 184, 1) 0%,
-    rgba(153, 31, 45, 1) 100%
+    rgba(156, 169, 248, 1) 0%,
+    rgba(63, 80, 181, 1) 100%
   );
   position: relative;
   border: 3px solid #383733;
@@ -116,18 +116,17 @@ export default {
   font-size: 13pt;
 }
 
-
-
 .addBtn {
-  width: 99%;
+  width: 101%;
   height: 50px;
   position: absolute;
   bottom: 0;
+  left: -1.5px;
   font-size: 30px;
-  border: 5px solid #991f2d;
-  border-radius: 0px 0px 15px 15px;
+  border: 5px solid rgba(63, 80, 181, 1);
+  border-radius: 0px 0px 13px 13px;
   font-size: 30px;
-  background: #991f2d;
+  background: rgba(63, 80, 181, 1);
   color: white;
   cursor: pointer;
 }

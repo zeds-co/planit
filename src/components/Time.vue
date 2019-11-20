@@ -32,9 +32,11 @@ export default {
   components: { datetime: Datetime },
   methods: {
     onStartInput(start) {
+      this.tripStart = start;
       this.$emit("start-input", start);
     },
     onEndInput(end) {
+      this.tripEnd = end;
       this.$emit("end-input", end);
     }
   }
