@@ -44,7 +44,7 @@ export default {
     tripStart: localStorage.tripStart,
     tripEnd: localStorage.tripEnd,
     duration: null,
-    fromCurrency: "JPY",
+    fromCurrency: null,
     toCurrency: null,
     exchangeRate1: null,
     exchangeRate2: null
@@ -62,6 +62,7 @@ export default {
     this.toCurrency = countryDetails.filter(
       item => item.country === localStorage.country
     )[0].currency_code;
+    this.fetchUserLocationInfo()
     this.fetchExchangeRate();
   },
   methods: {

@@ -2,6 +2,11 @@
   <div class="locationWrap">
     <h1>Where is your destination?</h1>
     <div class="location">
+      <select @change="e => onCountryChange(e.target.value)">
+        <option v-for="country in countries" :key="country" :value="country">{{
+          country
+        }}</option>
+      </select>
       <input
         type="text"
         placeholder="CITY"
@@ -10,21 +15,20 @@
         size="15"
         @change="e => onCityChange(e.target.value)"
       />
-      <input
-        placeholder="COUNTRY"
-        type="text"
-        id="country"
-        name="trip-country"
-        size="15"
-        @change="e => onCountryChange(e.target.value)"
-      />
     </div>
   </div>
 </template>
 
 <script>
+import countryDetails from "../../data/country_details.json";
 export default {
   name: "Location",
+  data: () => ({
+    countries: []
+  }),
+  mounted() {
+    this.countries = countryDetails.map(item => item.country);
+  },
   methods: {
     onCountryChange(country) {
       this.$emit("country-change", country);
