@@ -28,7 +28,6 @@
 <script>
 import Location from "../components/Location.vue";
 import Time from "../components/Time.vue";
-import moment from "moment";
 
 export default {
   name: "Info",
@@ -63,7 +62,7 @@ export default {
         this.duration = (endDate.getTime() - startDate.getTime()) / 86400000;
         localStorage.duration = this.duration;
       }
-      this.tripStart = moment(this.tripStart);
+      this.tripStart = this.tripStart
     },
     onEndInput(end) {
       this.tripEnd = end;
@@ -75,11 +74,6 @@ export default {
           endDate.getTime() / 86400000 - startDate.getTime() / 86400000;
         localStorage.duration = this.duration;
       }
-    }
-  },
-  filters: {
-    moment: function(date) {
-      return moment(date).format("ddd MMM D YYYY");
     }
   }
 };

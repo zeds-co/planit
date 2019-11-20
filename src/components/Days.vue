@@ -4,7 +4,7 @@
       class="dayWrap"
       v-for="(item, indexDay) in itinerarys"
       v-bind:key="indexDay"
-    >
+    >{{days.map(day => day.itinerary)}}
       <div class="dayHeader">
         <div class="day">{{ item.day }}</div>
         <div class="weather">{{ item.weather }}</div>
@@ -75,6 +75,34 @@ export default {
     ]
   }),
   methods: {
+    createDays(duration) {
+      let date = this.startDate;
+      for (let i = 0; i < duration; i++) {
+        this.days.push({
+          day: `DAY ${i + 1} (${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()})` ,
+          weather: "",
+          itinerary: [],
+        })
+        date.setDate(date.getDate() + 1);
+      }
+    },
+    getWeather() {
+      axios
+      .get("https://community-open-weather-map.p.rapidapi.com/forecast/daily",
+      { params: 
+        {"q": "san francisco,us",
+        "lat": "35",
+        "lon": "139",
+        "cnt": "10",
+        "units": "metric or imperial"
+        },
+        header:
+        {"x-rapidapi-host": "community-open-weather-map.p.rapidapi.com",
+        "x-rapidapi-key": "b6e4f9fc03msh80db2bc55980af4p181a67jsnb4b3c557714d"
+        }
+    })
+    .then(response => this.data = response);
+    },
     openPopUp(index) {
       this.selectedButton = index;
       this.showPopUp = true;
@@ -82,10 +110,10 @@ export default {
     closePopUp(plan) {
       const selectedIndex = this.selectedButton;
       this.showPopUp = false;
-      this.itinerarys[selectedIndex].itinerary.push({ text: plan });
+      this.days[selectedIndex].itinerary.push({ text: plan });
     },
     deleteItinerary(indexDay, indexItinerary) {
-      this.itinerarys[indexDay].itinerary.splice(indexItinerary, 1);
+      this.days[indexDay].itinerary.splice(indexItinerary, 1);
     }
   }
 };
