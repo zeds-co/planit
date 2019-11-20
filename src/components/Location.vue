@@ -49,10 +49,6 @@ export default {
   justify-content: center;
   flex-direction: column;
 }
-
-.locationWrap {
-  margin: 2rem;
-}
 .location {
   display: flex;
   flex-direction: column;
@@ -64,16 +60,22 @@ label {
   font-size: 18pt;
   margin: 1rem;
 }
-
-input {
+input,
+select {
   width: 300px;
   margin: 1rem;
+  font-family: Alata;
+  font-size: 10pt;
+  text-align: center;
+  height: 50px;
+  border: 2px solid #eaecef;
+  border-radius: 15px;
+  background: #fff;
+  padding: 5px;
 }
-
 h1 {
   text-align: center;
 }
-
 h2 {
   text-align: center;
 }

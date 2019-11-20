@@ -4,22 +4,12 @@
       <h2>From</h2>
       <datetime
         placeholder="START"
-        class="theme-orange"
-        v-model="date"
-        :value="new Date()"
-        :min="new Date()"
-        @input="value => onStartInput(value)"
+        @input="date => onStartInput(date)"
       ></datetime>
     </div>
     <div id="time-item">
       <h2>Until</h2>
-      <datetime
-        placeholder="END"
-        v-model="date"
-        :value="new Date()"
-        :min="new Date()"
-        @input="date => onEndInput(date)"
-      ></datetime>
+      <datetime placeholder="END" @input="date => onEndInput(date)"></datetime>
     </div>
   </div>
 </template>
@@ -47,7 +37,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .time {
-  margin: auto;
+  margin: 5px auto;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -193,4 +193,12 @@ export default {
 button:focus {
   outline: 0;
 }
+@media screen and (max-width: 480px) {
+  .contents {
+    margin-top: 10px !important;
+  }
+  .itineraryWrap {
+    margin-left: 5px;
+  }
+}
 </style>
