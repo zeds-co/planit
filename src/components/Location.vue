@@ -14,7 +14,12 @@
           >{{ country.countryName }}</option
         >
       </select>
-      <select class="city-select" @change="e => onCityChange(e.target.value)">
+      <select
+        v-if="cities.length > 0"
+        class="city-select"
+        @change="e => onCityChange(e.target.value)"
+      >
+        <option>CITY</option>
         <option v-for="city in cities" :key="city" :value="city">{{
           city
         }}</option>
