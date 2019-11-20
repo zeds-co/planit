@@ -3,21 +3,7 @@
     <div class="header">
       <div class="locationWrap">
         <div class="location">{{ `${city}, ${country}` }}</div>
-        <div class="term">
-          {{ duration }} DAY TRIP |
-          {{
-            `${this.tripStart
-              .toString()
-              .toUpperCase()
-              .split(" ")
-              .slice(0, 3)
-              .join(" ")} ~ ${this.tripEnd
-              .toUpperCase()
-              .split(" ")
-              .slice(0, 4)
-              .join(" ")}`
-          }}
-        </div>
+        <div class="term">{{ duration }} DAY TRIP</div>
       </div>
       <div v-if="toCurrency" class="exchangeWrap">
         <div class="exchangeRate">
@@ -127,5 +113,16 @@ export default {
 .exchange-title {
   font-weight: bold;
   margin: 5px 5px 5px 0px;
+}
+@media screen and (max-width: 480px) {
+  .header {
+    display: inline-block;
+  }
+  .location {
+    font-size: 30px;
+  }
+  .term {
+    margin-bottom: 10px;
+  }
 }
 </style>
