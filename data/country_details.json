@@ -715,6 +715,11 @@
     "currency_code": "PEN"
   },
   {
+    "country": "Philippines",
+    "country_code": "PH",
+    "currency_code": "PHP"
+  },
+  {
     "country": "Pitcairn",
     "country_code": "PN",
     "currency_code": "NZD"
