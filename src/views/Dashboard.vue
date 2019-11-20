@@ -33,7 +33,7 @@ export default {
 .contents {
   display: flex;
   overflow-x: scroll;
-  background: #eee;
+  background: white;
   height: 80%;
   padding: 10px;
   margin-top: 50px;
@@ -58,5 +58,10 @@ export default {
   height: 100px;
   border: 1px #ccc solid;
   margin: 15px auto;
+}
+@media screen and (max-width: 480px) {
+  .dashboard {
+    padding: 10px;
+  }
 }
 </style>
