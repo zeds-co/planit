@@ -9,6 +9,7 @@
 
 <script>
 import Navbar from "./components/Navbar";
+// import bg from "./assets/animation-bg.gif";
 
 export default {
   name: "app",
@@ -35,12 +36,16 @@ body {
   margin: 0rem;
   /* padding: 1rem; */
   background: rgb(232, 232, 232);
-  background: linear-gradient(
+  /* background: linear-gradient(
     3deg,
     rgba(232, 232, 232, 1) 0%,
     rgba(255, 255, 255, 1) 100%
-  );
+  ); */
   min-height: 600px;
+  background-image: url("./assets/animation-bg.gif");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: right bottom;
 }
 #app {
   font-family: "Alata", sans-serif;

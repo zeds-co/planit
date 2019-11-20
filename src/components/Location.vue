@@ -6,6 +6,7 @@
         class="country-select"
         @change="e => onCountryChange(e.target.value)"
       >
+        <option>COUNTRY</option>
         <option
           v-for="country in countries"
           :key="country.countryCode"
@@ -13,7 +14,12 @@
           >{{ country.countryName }}</option
         >
       </select>
-      <select class="city-select" @change="e => onCityChange(e.target.value)">
+      <select
+        v-if="cities.length > 0"
+        class="city-select"
+        @change="e => onCityChange(e.target.value)"
+      >
+        <option>CITY</option>
         <option v-for="city in cities" :key="city" :value="city">{{
           city
         }}</option>
@@ -64,6 +70,21 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+option {
+  text-align: center;
+  border-radius: 15px;
+}
+
+select {
+  text-align: center;
+  border-radius: 15px;
+}
+
+select .lt {
+  text-align: center;
+  border-radius: 15px;
+}
+
 #location {
   margin: auto;
   display: flex;

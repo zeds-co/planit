@@ -33,7 +33,7 @@ export default {
 .contents {
   display: flex;
   overflow-x: scroll;
-  background: #eee;
+  background: white;
   height: 80%;
   padding: 10px;
   margin-top: 50px;

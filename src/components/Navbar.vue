@@ -43,7 +43,7 @@ export default {
 .navbar {
   height: 130px;
   box-sizing: border-box;
-  border-bottom: 1px solid #eaecef;
+  border-bottom: 1px solid #ceccc2;
   display: flex;
   align-items: center;
 }
