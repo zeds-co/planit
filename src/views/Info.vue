@@ -19,7 +19,6 @@
       class="submit"
       tag="button"
       :disabled="!(this.country && this.city && this.tripStart && this.tripEnd)"
-      v-on:click="onClick()"
     >
       PLANIT »
     </router-link>
@@ -47,12 +46,15 @@ export default {
   methods: {
     onCountryChange(country) {
       this.country = country;
+      localStorage.country = country;
     },
     onCityChange(city) {
       this.city = city;
+      localStorage.city = city;
     },
     onStartInput(start) {
       this.tripStart = start;
+      localStorage.tripStart = start;
       if (this.tripEnd) {
         const startDate = new Date(this.tripStart);
         const endDate = new Date(this.tripEnd);
@@ -61,20 +63,11 @@ export default {
     },
     onEndInput(end) {
       this.tripEnd = end;
+      localStorage.tripEnd = end;
       if (this.tripStart) {
         const startDate = new Date(this.tripStart);
         const endDate = new Date(this.tripEnd);
         this.duration = (endDate.getTime() - startDate.getTime()) / 86400000;
-      }
-    },
-    onClick() {
-      if (this.country && this.city && this.tripStart && this.tripEnd) {
-        localStorage.country = this.country;
-        localStorage.city = this.city;
-        localStorage.tripStart = this.tripStart;
-        localStorage.tripEnd = this.tripEnd;
-      } else {
-        alert("Please fill out all the information!");
       }
     }
   }
