@@ -4,7 +4,7 @@
       class="dayWrap"
       v-for="(item, indexDay) in days"
       v-bind:key="indexDay"
-    >
+    >{{days.map(day => day.itinerary)}}
       <div class="dayHeader">
         <div class="day">{{ item.day }}</div>
         <div class="weather">{{ item.weather }}</div>
@@ -84,10 +84,14 @@ export default {
   },
   methods: {
     createDays(duration) {
+      let date = this.startDate;
       for (let i = 0; i < duration; i++) {
         this.days.push({
-          day: `DAY ${i + 1} (${this.startDate.getMonth() + 1}/${this.startDate.getDate() + i}/${this.startDate.getFullYear()})` 
+          day: `DAY ${i + 1} (${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()})` ,
+          weather: "",
+          itinerary: [],
         })
+        date.setDate(date.getDate() + 1);
       }
     },
     getWeather() {
@@ -114,10 +118,10 @@ export default {
     closePopUp(plan) {
       const selectedIndex = this.selectedButton;
       this.showPopUp = false;
-      this.itinerarys[selectedIndex].itinerary.push({ text: plan });
+      this.days[selectedIndex].itinerary.push({ text: plan });
     },
     deleteItinerary(indexDay, indexItinerary) {
-      this.itinerarys[indexDay].itinerary.splice(indexItinerary, 1);
+      this.days[indexDay].itinerary.splice(indexItinerary, 1);
     }
   }
 };
