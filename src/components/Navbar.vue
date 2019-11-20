@@ -1,10 +1,10 @@
 <template>
   <header class="navbar">
-    <img alt="planit" class="logo" src="../assets/planit-logo.png" />
-
     <div id="links">
       <div class="nav-item">
-        <router-link to="/">INFO</router-link>
+        <router-link to="/">
+          <img alt="planit" class="logo" src="../assets/planit-logo.png"
+        /></router-link>
       </div>
 
       <div v-if="isUserLoggedIn" class="nav-item">

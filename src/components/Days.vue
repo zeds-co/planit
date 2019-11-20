@@ -36,7 +36,9 @@
         </div>
       </div>
     </div>
-    <popup v-show="this.showPopUp === true" v-on:closePopUp="closePopUp" />
+    <popup v-show="this.showPopUp 
+    
+true" v-on:closePopUp="closePopUp" />
   </div>
 </template>
 
@@ -144,11 +146,14 @@ export default {
 }
 
 #itin-name {
+  font-weight: bold;
+  font-size: 20pt;
   padding: 5px 5px 5px 5px;
   text-align: center;
   font-size: 13pt;
 }
 .addBtn {
+  font-weight: bold;
   z-index: 1;
   width: 101%;
   height: 50px;
