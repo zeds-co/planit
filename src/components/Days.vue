@@ -112,6 +112,7 @@ export default {
   flex: 0 0 350px;
 }
 .itineraryWrap {
+  overflow: hidden;
   background: rgb(156, 169, 248);
   background: linear-gradient(
     3deg,
@@ -129,12 +130,18 @@ export default {
   height: 100%;
   overflow-y: scroll;
 }
+
+.itinerary::-webkit-scrollbar {
+  width: 0 !important;
+}
+
 .itinerary {
   position: relative;
   width: 90%;
   height: 100px;
   margin: 15px auto;
-  padding: 5px;
+  padding: 15px;
+  text-align: center;
   border-radius: 15px;
   background: #383733;
   color: white;
