@@ -14,9 +14,14 @@
       v-on:start-input="start => onStartInput(start)"
       v-on:end-input="end => onEndInput(end)"
     />
-    <button type="button" class="submit" v-on:click="onClick()">
+    <router-link
+      :to="{ path: '/dashboard' }"
+      class="submit"
+      tag="button"
+      :disabled="!(this.country && this.city && this.tripStart && this.tripEnd)"
+    >
       PLANIT »
-    </button>
+    </router-link>
   </div>
 </template>
 
@@ -43,35 +48,32 @@ export default {
   methods: {
     onCountryChange(country) {
       this.country = country;
+      localStorage.country = country;
     },
     onCityChange(city) {
       this.city = city;
+      localStorage.city = city;
     },
     onStartInput(start) {
       this.tripStart = start;
+      localStorage.tripStart = start;
       if (this.tripEnd) {
         const startDate = new Date(this.tripStart);
         const endDate = new Date(this.tripEnd);
         this.duration = (endDate.getTime() - startDate.getTime()) / 86400000;
+        localStorage.duration = this.duration;
       }
       this.tripStart = moment(this.tripStart);
     },
     onEndInput(end) {
       this.tripEnd = end;
+      localStorage.tripEnd = end;
       if (this.tripStart) {
         const startDate = new Date(this.tripStart);
         const endDate = new Date(this.tripEnd);
         this.duration =
           endDate.getTime() / 86400000 - startDate.getTime() / 86400000;
-      }
-      this.tripEnd = moment(this.tripEnd);
-    },
-    onClick() {
-      if (this.country && this.city && this.tripStart && this.tripEnd) {
-        localStorage.country = this.country;
-        localStorage.city = this.city;
-        localStorage.tripStart = this.tripStart;
-        localStorage.tripEnd = this.tripEnd;
+        localStorage.duration = this.duration;
       }
     }
   },
