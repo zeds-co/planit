@@ -2,7 +2,7 @@
   <div class="contents">
     <div
       class="dayWrap"
-      v-for="(item, indexDay) in itinerarys"
+      v-for="(item, indexDay) in days"
       v-bind:key="indexDay"
     >
       <div class="dayHeader">
@@ -36,7 +36,8 @@
         </div>
       </div>
     </div>
-    <popup v-show="this.showPopUp=true" v-on:closePopUp="closePopUp" />
+    <!-- <popup v-show="this.showPopUp=true" v-on:closePopUp="closePopUp" /> -->
+    <popup v-show="this.showPopUp" v-on:closePopUp="closePopUp" />
   </div>
 </template>
 
@@ -51,8 +52,9 @@ export default {
   data: () => ({
     showPopUp: false,
     data: null,
+    duration: localStorage.duration,
     selectedButton: null,
-    itinerarys: [
+    days: [
       {
         day: "DAY1 (12/27/2019)",
         weather: "SUNNY",
@@ -93,6 +95,9 @@ export default {
     .then(response => this.data = response);
   },
   methods: {
+    createDays(duration) {
+      for (let i = 0; i < duration; i++)
+    }
     openPopUp(index) {
       this.selectedButton = index;
       this.showPopUp = true;

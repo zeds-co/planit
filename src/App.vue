@@ -27,8 +27,12 @@ export default {
   /* margin: auto; */
 }
 
+html {
+  min-height: 100%;
+}
+
 body {
-  margin: 1rem;
+  margin: 0rem;
   /* padding: 1rem; */
   background: rgb(232, 232, 232);
   background: linear-gradient(
@@ -36,6 +40,7 @@ body {
     rgba(232, 232, 232, 1) 0%,
     rgba(255, 255, 255, 1) 100%
   );
+  min-height: 600px;
 }
 #app {
   font-family: "Alata", sans-serif;
