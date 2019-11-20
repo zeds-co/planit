@@ -6,7 +6,7 @@
         <div class="weather">SUNNY</div>
       </div>
       <div class="itineraryWrap">
-        <button class="addBtn" v-on:click="addPlan">+</button>
+        <button class="addBtn" v-on:click="openPopUp(true)">+</button>
       </div>
     </div>
     <div class="dayWrap">
@@ -15,7 +15,7 @@
         <div class="weather">SNOW</div>
       </div>
       <div class="itineraryWrap">
-        <button class="addBtn" v-on:click="addPlan">+</button>
+        <button class="addBtn" v-on:click="openPopUp(true)">+</button>
         <div class="itinerarys">
           <div class="itinerary">
             <div>Yu Garden</div>
@@ -41,22 +41,34 @@
         <div class="weather">SNOW</div>
       </div>
       <div class="itineraryWrap">
-        <button class="addBtn" v-on:click="addPlan">+</button>
+        <button class="addBtn" v-on:click="openPopUp(true)">+</button>
         <div class="itinerary">
           <div>The Oriental Pearl Tower</div>
         </div>
       </div>
     </div>
+    <popup v-show="this.showPopUp === true" v-on:closePopUp="closePopUp" />
   </div>
 </template>
 
 <script>
+import Popup from "./Popup";
+
 export default {
   name: "Days",
-  props: {},
+  components: {
+    popup: Popup
+  },
+  data: () => ({
+    showPopUp: false
+  }),
   methods: {
-    addPlan() {
-      // store.commit("Click Add Button");
+    openPopUp() {
+      this.showPopUp = true;
+    },
+    closePopUp(plan) {
+      this.showPopUp = false;
+      alert(plan);
     }
   }
 };
