@@ -1,6 +1,6 @@
 <template>
   <div class="info">
-    <div id="info-item">{{ duration }}</div>
+    <div id="info-item" v-if="!isNaN(duration)">{{ duration }}</div>
     <div id="info-item" v-if="city !== null && country !== null">
       {{ `${city}, ${country}` }}
     </div>
@@ -14,14 +14,10 @@
       v-on:start-input="start => onStartInput(start)"
       v-on:end-input="end => onEndInput(end)"
     />
-    <router-link
-      :to="{ path: '/dashboard' }"
-      class="submit"
-      tag="button"
-      :disabled="!(this.country && this.city && this.tripStart && this.tripEnd)"
-    >
+    <div class="errMsg">{{ errMsg }}</div>
+    <button type="button" class="submit" v-on:click="checkValues()">
       PLANIT »
-    </router-link>
+    </button>
   </div>
 </template>
 
@@ -41,38 +37,57 @@ export default {
       city: null,
       tripStart: null,
       tripEnd: null,
-      duration: null
+      duration: null,
+      errMsg: null
     };
   },
   methods: {
     onCountryChange(country) {
       this.country = country;
-      localStorage.country = country;
     },
     onCityChange(city) {
       this.city = city;
-      localStorage.city = city;
     },
     onStartInput(start) {
       this.tripStart = start;
-      localStorage.tripStart = start;
       if (this.tripEnd) {
         const startDate = new Date(this.tripStart);
         const endDate = new Date(this.tripEnd);
         this.duration = (endDate.getTime() - startDate.getTime()) / 86400000;
-        localStorage.duration = this.duration;
       }
-      this.tripStart = this.tripStart
+      this.tripStart = this.tripStart;
     },
     onEndInput(end) {
-      this.tripEnd = end;
-      localStorage.tripEnd = end;
-      if (this.tripStart) {
-        const startDate = new Date(this.tripStart);
-        const endDate = new Date(this.tripEnd);
-        this.duration =
-          endDate.getTime() / 86400000 - startDate.getTime() / 86400000;
+      if (end) {
+        this.tripEnd = end;
+        if (this.tripStart) {
+          const startDate = new Date(this.tripStart);
+          const endDate = new Date(this.tripEnd);
+          this.duration =
+            endDate.getTime() / 86400000 - startDate.getTime() / 86400000;
+        }
+      }
+    },
+    checkValues() {
+      const today = new Date();
+      if (this.city === null || this.country === null) {
+        this.errMsg = "Please input your full destination.";
+      } else if (this.tripStart === null) {
+        this.errMsg = "Please select your trip's start day.";
+      } else if (this.tripEnd === null) {
+        this.errMsg = "Please input your trip's end day.";
+      } else if (today.getTime() > this.tripStart) {
+        this.errMsg = "Your start day must be after today.";
+      } else if (this.tripStart > this.tripEnd) {
+        this.errMsg = "Your start day cannot be after your end day.";
+      } else {
+        this.errMsg = null;
+        localStorage.city = this.city;
+        localStorage.country = this.country;
+        localStorage.tripStart = this.tripStart;
+        localStorage.tripEnd = this.tripEnd;
         localStorage.duration = this.duration;
+        this.$router.push("/dashboard");
       }
     }
   }
@@ -118,5 +133,16 @@ input {
   padding: 1rem;
   margin: 1rem;
   width: 300px;
+}
+.errMsg {
+  min-height: 22px;
+  color: #b53f3f;
+}
+input[type="text"]:focus {
+  outline: 0;
+  border: 5px solid #eaecef;
+}
+button:focus {
+  outline: 0;
 }
 </style>
