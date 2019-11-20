@@ -3,6 +3,7 @@
     <div class="dayWrap" v-for="(item, indexDay) in days" v-bind:key="indexDay">
       <div class="dayHeader">
         <div class="day">{{ item.day }}</div>
+        <router-link to="/map">MAP</router-link>
         <div class="weather">{{ item.weather }}</div>
       </div>
       <div class="itineraryWrap">
