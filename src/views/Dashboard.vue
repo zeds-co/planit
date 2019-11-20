@@ -59,4 +59,9 @@ export default {
   border: 1px #ccc solid;
   margin: 15px auto;
 }
+@media screen and (max-width: 480px) {
+  .dashboard {
+    padding: 10px;
+  }
+}
 </style>
