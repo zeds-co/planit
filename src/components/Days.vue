@@ -4,7 +4,7 @@
       class="dayWrap"
       v-for="(item, indexDay) in days"
       v-bind:key="indexDay"
-    >{{days}}
+    >
       <div class="dayHeader">
         <div class="day">{{ item.day }}</div>
         <div class="weather">{{ item.weather }}</div>
@@ -57,26 +57,26 @@ export default {
     endDate: new Date(localStorage.tripEnd),
     selectedButton: null,
     days: [
-      {
-        day: "DAY1 (12/27/2019)",
-        weather: "SUNNY",
-        itinerary: []
-      },
-      {
-        day: "DAY2 (12/28/2019)",
-        weather: "SNOW",
-        itinerary: [
-          { text: "First Place" },
-          { text: "Second Place" },
-          { text: "Third Place" },
-          { text: "Starbucks Reserve Roastery Shanghai" }
-        ]
-      },
-      {
-        day: "DAY3 (12/29/2019)",
-        weather: "SNOW",
-        itinerary: []
-      }
+      // {
+      //   day: "DAY1 (12/27/2019)",
+      //   weather: "SUNNY",
+      //   itinerary: []
+      // },
+      // {
+      //   day: "DAY2 (12/28/2019)",
+      //   weather: "SNOW",
+      //   itinerary: [
+      //     { text: "First Place" },
+      //     { text: "Second Place" },
+      //     { text: "Third Place" },
+      //     { text: "Starbucks Reserve Roastery Shanghai" }
+      //   ]
+      // },
+      // {
+      //   day: "DAY3 (12/29/2019)",
+      //   weather: "SNOW",
+      //   itinerary: []
+      // }
     ]
   }),
   mounted() {
@@ -86,7 +86,7 @@ export default {
     createDays(duration) {
       for (let i = 0; i < duration; i++) {
         this.days.push({
-          day: `DAY ${i + 1} (${this.startDate.getMonth()}/${this.startDate.getDay + i}, ${this.startDate.getFullYear()})` 
+          day: `DAY ${i + 1} (${this.startDate.getMonth() + 1}/${this.startDate.getDate() + i}/${this.startDate.getFullYear()})` 
         })
       }
     },
