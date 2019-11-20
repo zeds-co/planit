@@ -1,11 +1,14 @@
 <template>
   <div class="popUpCover">
     <div class="popUp">
-      <div>Please input ...</div>
+      <h2>Add a spot!</h2>
       <p>
         <input class="popupInput" type="text" id="planText" />
       </p>
-      <p><button v-on:click="closePopUp" class="okBtn">OK</button></p>
+      <div class="buttons">
+        <button v-on:click="closePopUp" class="cancelBtn">CANCEL</button
+        ><button v-on:click="closePopUp" class="addBtn">ADD</button>
+      </div>
     </div>
   </div>
 </template>
@@ -26,7 +29,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .popUpCover {
-  z-index: 1;
+  z-index: 2;
   position: fixed;
   top: 0;
   left: 0;
@@ -38,10 +41,13 @@ export default {
   justify-content: center;
 }
 .popUp {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 400px;
-  height: 200px;
+  height: auto;
   padding: 20px;
+  margin: auto;
   background: #efefef;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
@@ -52,15 +58,46 @@ export default {
   padding: 5px;
   font-size: 28px;
 }
-.okBtn {
-  width: 100px;
-  height: 40px;
-  font-size: 26px;
-  border: none;
-  margin: 0 130px;
-  position: absolute;
+
+h2 {
+  text-align: center;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+
+.addBtn {
+  border: 3px solid #383733;
+  text-align: center;
+  width: 130px;
+  height: auto;
+  font-size: 18pt;
+  font-weight: bold;
+  border-radius: 10px;
+  margin: 10px;
   bottom: 20px;
+  background: #3f50b5;
+  color: white;
+}
+
+.cancelBtn {
+  width: 130px;
+  height: auto;
+  font-size: 18pt;
+  font-weight: bold;
+  border: 3px solid #383733;
+  border-radius: 10px;
+  margin: 10px;
+  bottom: 20px;
+  padding: 10px;
   background: #999;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  color: white;
+}
+input[type="text"]:focus,
+button:focus {
+  outline: 0;
 }
 </style>
