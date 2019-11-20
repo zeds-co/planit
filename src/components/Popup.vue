@@ -18,8 +18,8 @@ export default {
   name: "Popup",
   methods: {
     closePopUp() {
-      const plan = document.getElementById("planText").value;
-      this.$emit("closePopUp", plan);
+      const input = document.getElementById("planText").value;
+      this.$emit("closePopUp", input);
       document.getElementById("planText").value = "";
     }
   }

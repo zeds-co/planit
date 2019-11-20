@@ -7,10 +7,11 @@
           {{ duration }} DAY TRIP |
           {{
             `${this.tripStart
+              .toString()
               .toUpperCase()
               .split(" ")
               .slice(0, 3)
-              .join(" ")} - ${this.tripEnd
+              .join(" ")} ~ ${this.tripEnd
               .toUpperCase()
               .split(" ")
               .slice(0, 4)
@@ -18,7 +19,7 @@
           }}
         </div>
       </div>
-      <div class="exchangeWrap">
+      <div v-if="toCurrency" class="exchangeWrap">
         <div class="exchangeRate">
           {{ `1 ${fromCurrency} = ${exchangeRate1} ${toCurrency}` }}
         </div>
@@ -33,6 +34,8 @@
 <script>
 import axios from "axios";
 import countryDetails from "../../data/country_details.json";
+import moment from "moment";
+
 export default {
   name: "Tripsummary",
   data: () => ({
@@ -41,7 +44,7 @@ export default {
     tripStart: null,
     tripEnd: null,
     duration: null,
-    fromCurrency: null,
+    fromCurrency: "JPY",
     toCurrency: null,
     exchangeRate1: null,
     exchangeRate2: null
@@ -59,7 +62,7 @@ export default {
     this.toCurrency = countryDetails.filter(
       item => item.country === localStorage.country
     )[0].currency_code;
-    this.fetchUserLocationInfo().then(() => this.fetchExchangeRate());
+    this.fetchExchangeRate();
   },
   methods: {
     async fetchExchangeRate() {
@@ -87,10 +90,10 @@ export default {
       this.exchangeRate2 = exchangeRate2.data;
     },
     async fetchUserLocationInfo() {
-      let ipAddress = await axios("https://api.ipify.org?format=json");
-      ipAddress = ipAddress.data.ip;
+      let ipAddress = await axios("http://ipinfo.io");
+      ipAddress = ipAddress.data;
       const userLocationInfo = await axios(
-        `https://ip-geo-location.p.rapidapi.com/ip/${ipAddress}?format=json`,
+        `https://ip-geo-location.p.rapidapi.com/ip/%7Bip%7D?${ipAddress}`,
         {
           headers: {
             "x-rapidapi-host": "ip-geo-location.p.rapidapi.com",
@@ -100,6 +103,11 @@ export default {
         }
       );
       this.fromCurrency = userLocationInfo.data.currency.code;
+    }
+  },
+  filters: {
+    moment: function(date) {
+      return moment(date).format("ddd MMM D YYYY");
     }
   }
 };
