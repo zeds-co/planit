@@ -4,7 +4,7 @@
       <div class="locationWrap">
         <div class="location">{{ `${city}, ${country}` }}</div>
         <div class="term">
-          {{ duration }} DAY TRIP | {{ `${this.tripStart}-${this.tripEnd}` }}
+          {{ duration }} DAY TRIP | {{ `${this.tripStart} ~ ${this.tripEnd}` }}
         </div>
       </div>
       <div class="exchangeWrap">

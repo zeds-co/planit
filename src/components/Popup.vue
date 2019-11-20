@@ -73,12 +73,12 @@ h2 {
 }
 
 .addBtn {
+  border: 3px solid #383733;
   text-align: center;
-  width: 100px;
-  height: 50px;
+  width: 130px;
+  height: auto;
   font-size: 18pt;
   font-weight: bold;
-  border: none;
   border-radius: 10px;
   margin: 10px;
   bottom: 20px;
@@ -88,13 +88,14 @@ h2 {
 
 .cancelBtn {
   width: 130px;
-  height: 50px;
+  height: auto;
   font-size: 18pt;
   font-weight: bold;
-  border: none;
+  border: 3px solid #383733;
   border-radius: 10px;
   margin: 10px;
   bottom: 20px;
+  padding: 10px;
   background: #999;
   color: white;
 }
