@@ -14,9 +14,15 @@
       v-on:start-input="start => onStartInput(start)"
       v-on:end-input="end => onEndInput(end)"
     />
-    <button type="button" class="submit" v-on:click="onClick()">
+    <router-link
+      :to="{ path: '/dashboard' }"
+      class="submit"
+      tag="button"
+      :disabled="!(this.country && this.city && this.tripStart && this.tripEnd)"
+      v-on:click="onClick()"
+    >
       PLANIT »
-    </button>
+    </router-link>
   </div>
 </template>
 
@@ -67,6 +73,8 @@ export default {
         localStorage.city = this.city;
         localStorage.tripStart = this.tripStart;
         localStorage.tripEnd = this.tripEnd;
+      } else {
+        alert("Please fill out all the information!");
       }
     }
   }
