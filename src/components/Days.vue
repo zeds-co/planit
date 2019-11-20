@@ -9,7 +9,7 @@
         <router-link to="/map"
           ><img
             id="map-icon"
-            src="https://img.icons8.com/wired/64/000000/google-maps.png"
+            src="https://img.icons8.com/ios-glyphs/30/000000/google-maps.png"
         /></router-link>
         <div class="weather">{{ item.weather }}</div>
       </div>
@@ -109,7 +109,7 @@ export default {
 .contents {
   display: flex;
   overflow-x: scroll;
-  background: #eee;
+  background: white;
   height: 80%;
   padding: 10px;
   margin-top: 30px;
@@ -140,6 +140,7 @@ export default {
 
 #map-icon {
   width: 30px;
+  padding: 2px 0px 0px 5px;
 }
 
 .itineraryWrap {
