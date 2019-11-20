@@ -2,19 +2,15 @@
   <div class="locationWrap">
     <h1>Where is your destination?</h1>
     <div class="location">
-      <select @change="e => onCountryChange(e.target.name, e.target.value)">
+      <select @change="e => onCountryChange(e.target.value)">
         <option
           v-for="country in countries"
           :key="country.countryCode"
-          :value="country.countryCode"
-          :name="country.countryName"
+          :value="country.countryName"
           >{{ country.countryName }}</option
         >
       </select>
-      <select
-        v-if="cities.length > 0"
-        @change="e => onCityChange(e.target.value)"
-      >
+      <select @change="e => onCityChange(e.target.value)">
         <option v-for="city in cities" :key="city" :value="city">{{
           city
         }}</option>

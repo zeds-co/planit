@@ -51,7 +51,9 @@ export default {
     this.toCurrency = countryDetails.filter(
       item => item.country === localStorage.country
     )[0].currency_code;
-    this.fetchExchangeRate();
+    this.fetchUserLocationInfo().then(() => {
+      this.fetchExchangeRate();
+    });
   },
   methods: {
     async fetchExchangeRate() {
@@ -79,10 +81,10 @@ export default {
       this.exchangeRate2 = exchangeRate2.data.toFixed(3);
     },
     async fetchUserLocationInfo() {
-      let ipAddress = await axios("http://ipinfo.io");
-      ipAddress = ipAddress.data;
+      let ipAddress = await axios("https://api.ipify.org/?format=json");
+      ipAddress = ipAddress.data.ip;
       const userLocationInfo = await axios(
-        `https://ip-geo-location.p.rapidapi.com/ip/%7Bip%7D?${ipAddress}`,
+        `https://ip-geo-location.p.rapidapi.com/ip/${ipAddress}`,
         {
           headers: {
             "x-rapidapi-host": "ip-geo-location.p.rapidapi.com",
@@ -91,6 +93,7 @@ export default {
           }
         }
       );
+      localStorage.a = userLocationInfo;
       this.fromCurrency = userLocationInfo.data.currency.code;
     }
   },
