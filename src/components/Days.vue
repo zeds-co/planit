@@ -123,12 +123,15 @@ export default {
 }
 
 #itin-name {
+  font-weight: bold;
+  font-size: 20pt;
   padding: 5px 5px 5px 5px;
   text-align: center;
   font-size: 13pt;
 }
 
 .addBtn {
+  font-weight: bold;
   width: 101%;
   height: 50px;
   position: absolute;

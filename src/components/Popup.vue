@@ -1,11 +1,14 @@
 <template>
   <div class="popUpCover">
     <div class="popUp">
-      <div>Please input ...</div>
+      <h2>Add a spot!</h2>
       <p>
         <input class="popupInput" type="text" id="planText" />
       </p>
-      <p><button v-on:click="closePopUp" class="okBtn">OK</button></p>
+      <div class="buttons">
+        <button v-on:click="closePopUp" class="cancelBtn">CANCEL</button
+        ><button v-on:click="closePopUp" class="addBtn">ADD</button>
+      </div>
     </div>
   </div>
 </template>
@@ -41,10 +44,13 @@ export default {
   justify-content: center;
 }
 .popUp {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 400px;
-  height: 200px;
+  height: auto;
   padding: 20px;
+  margin: auto;
   background: #efefef;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
@@ -55,15 +61,41 @@ export default {
   padding: 5px;
   font-size: 28px;
 }
-.okBtn {
+
+h2 {
+  text-align: center;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+
+.addBtn {
+  text-align: center;
   width: 100px;
-  height: 40px;
-  font-size: 26px;
+  height: 50px;
+  font-size: 18pt;
+  font-weight: bold;
   border: none;
-  margin: 0 130px;
-  position: absolute;
+  border-radius: 10px;
+  margin: 10px;
+  bottom: 20px;
+  background: #3f50b5;
+  color: white;
+}
+
+.cancelBtn {
+  width: 130px;
+  height: 50px;
+  font-size: 18pt;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  margin: 10px;
   bottom: 20px;
   background: #999;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  color: white;
 }
 </style>
