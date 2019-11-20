@@ -26,7 +26,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .popUpCover {
-  z-index: 1;
+  z-index: 2;
   position: fixed;
   top: 0;
   left: 0;
@@ -62,5 +62,9 @@ export default {
   bottom: 20px;
   background: #999;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+input[type="text"]:focus,
+button:focus {
+  outline: 0;
 }
 </style>
