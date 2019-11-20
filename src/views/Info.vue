@@ -23,6 +23,8 @@
 <script>
 import Location from "../components/Location.vue";
 import Time from "../components/Time.vue";
+import moment from "moment";
+
 export default {
   name: "Info",
   components: {
@@ -52,14 +54,17 @@ export default {
         const endDate = new Date(this.tripEnd);
         this.duration = (endDate.getTime() - startDate.getTime()) / 86400000;
       }
+      this.tripStart = moment(this.tripStart);
     },
     onEndInput(end) {
       this.tripEnd = end;
       if (this.tripStart) {
         const startDate = new Date(this.tripStart);
         const endDate = new Date(this.tripEnd);
-        this.duration = (endDate.getTime() - startDate.getTime()) / 86400000;
+        this.duration =
+          endDate.getTime() / 86400000 - startDate.getTime() / 86400000;
       }
+      this.tripEnd = moment(this.tripEnd);
     },
     onClick() {
       if (this.country && this.city && this.tripStart && this.tripEnd) {
@@ -68,6 +73,11 @@ export default {
         localStorage.tripStart = this.tripStart;
         localStorage.tripEnd = this.tripEnd;
       }
+    }
+  },
+  filters: {
+    moment: function(date) {
+      return moment(date).format("LL");
     }
   }
 };
