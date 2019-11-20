@@ -33,7 +33,6 @@
         </div>
       </div>
     </div>
-    <!-- <popup v-show="this.showPopUp=true" v-on:closePopUp="closePopUp" /> -->
     <popup v-show="this.showPopUp" v-on:closePopUp="closePopUp" />
   </div>
 </template>
@@ -50,31 +49,10 @@ export default {
     showPopUp: false,
     weather: null,
     duration: localStorage.duration,
-    startDate: new Date(localStorage.tripStart),
-    endDate: new Date(localStorage.tripEnd),
+    startDate: localStorage.tripStart,
+    endDate: localStorage.tripEnd,
     selectedButton: null,
-    days: [
-      // {
-      //   day: "DAY1 (12/27/2019)",
-      //   weather: "SUNNY",
-      //   itinerary: []
-      // },
-      // {
-      //   day: "DAY2 (12/28/2019)",
-      //   weather: "SNOW",
-      //   itinerary: [
-      //     { text: "First Place" },
-      //     { text: "Second Place" },
-      //     { text: "Third Place" },
-      //     { text: "Starbucks Reserve Roastery Shanghai" }
-      //   ]
-      // },
-      // {
-      //   day: "DAY3 (12/29/2019)",
-      //   weather: "SNOW",
-      //   itinerary: []
-      // }
-    ]
+    days: []
   }),
   mounted() {
     this.createDays(this.duration);
@@ -82,11 +60,13 @@ export default {
   },
   methods: {
     createDays(duration) {
+      let date = new Date(this.startDate);
       for (let i = 0; i < duration; i++) {
         this.days.push({
           day: `DAY ${i + 1} (${this.startDate.getMonth() +
             1}/${this.startDate.getDate() + i}/${this.startDate.getFullYear()})`
         });
+        date.setDate(date.getDate() + 1);
       }
     },
     getWeather() {
@@ -106,10 +86,10 @@ export default {
     closePopUp(plan) {
       const selectedIndex = this.selectedButton;
       this.showPopUp = false;
-      this.itinerarys[selectedIndex].itinerary.push({ text: plan });
+      this.days[selectedIndex].itinerary.push({ text: plan });
     },
     deleteItinerary(indexDay, indexItinerary) {
-      this.itinerarys[indexDay].itinerary.splice(indexItinerary, 1);
+      this.days[indexDay].itinerary.splice(indexItinerary, 1);
     }
   }
 };
