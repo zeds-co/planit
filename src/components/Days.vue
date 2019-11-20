@@ -36,9 +36,7 @@
         </div>
       </div>
     </div>
-    <popup v-show="this.showPopUp 
-    
-true" v-on:closePopUp="closePopUp" />
+    <popup v-show="this.showPopUp=true" v-on:closePopUp="closePopUp" />
   </div>
 </template>
 
