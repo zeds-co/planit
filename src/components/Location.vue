@@ -2,11 +2,24 @@
   <div class="locationWrap">
     <h1>Where is your destination?</h1>
     <div class="location">
-      <select @change="e => onCountryChange(e.target.value)">
-        <option v-for="country in countries" :key="country" :value="country">{{
-          country
+      <select @change="e => onCountryChange(e.target.name, e.target.value)">
+        <option
+          v-for="country in countries"
+          :key="country.countryCode"
+          :value="country.countryCode"
+          :name="country.countryName"
+          >{{ country.countryName }}</option
+        >
+      </select>
+      <select
+        v-if="cities.length > 0"
+        @change="e => onCityChange(e.target.value)"
+      >
+        <option v-for="city in cities" :key="city" :value="city">{{
+          city
         }}</option>
       </select>
+
       <input
         type="text"
         placeholder="CITY"
@@ -21,17 +34,30 @@
 
 <script>
 import countryDetails from "../../data/country_details.json";
+import axios from "axios";
 export default {
   name: "Location",
   data: () => ({
-    countries: []
+    countries: [],
+    cities: []
   }),
   mounted() {
-    this.countries = countryDetails.map(item => item.country);
+    this.countries = countryDetails.map(item => ({
+      countryName: item.country,
+      countryCode: item.country_code
+    }));
   },
   methods: {
-    onCountryChange(country) {
-      this.$emit("country-change", country);
+    async onCountryChange(countryName, countryCode) {
+      this.$emit("country-change", countryName);
+      const cities = await axios.get(
+        `https://wft-geo-db.p.rapidapi.com/v1/geo/cities?countryIds=${countryCode}`,
+        {
+          "x-rapidapi-host": "wft-geo-db.p.rapidapi.com",
+          "x-rapidapi-key": "f8458b1c78msh0cabb0870fc79a6p1d44adjsn84de5db4361c"
+        }
+      );
+      this.cities = cities;
     },
     onCityChange(city) {
       this.$emit("city-change", city);

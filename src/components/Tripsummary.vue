@@ -33,7 +33,7 @@ export default {
     tripStart: null,
     tripEnd: null,
     duration: null,
-    fromCurrency: "JPY",
+    fromCurrency: null,
     toCurrency: null,
     exchangeRate1: null,
     exchangeRate2: null
