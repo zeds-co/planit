@@ -1,53 +1,44 @@
 <template>
   <div class="contents">
-    <div class="dayWrap">
+    <div
+      class="dayWrap"
+      v-for="(item, indexDay) in itinerarys"
+      v-bind:key="indexDay"
+    >
       <div class="dayHeader">
-        <div class="day">DAY 1</div>
-        <div class="day">12/28/2019</div>
-        <div class="weather">SUNNY</div>
+        <div class="day">{{ item.day }}</div>
+        <div class="weather">{{ item.weather }}</div>
       </div>
       <div class="itineraryWrap">
-        <button class="addBtn" v-on:click="openPopUp(true)">+</button>
-      </div>
-    </div>
-    <div class="dayWrap">
-      <div class="dayHeader">
-        <div class="day">DAY 2</div>
-        <div class="day">12/29/2019</div>
-        <div class="weather">SNOW</div>
-      </div>
-      <div class="itineraryWrap">
-        <button class="addBtn" v-on:click="openPopUp(true)">+</button>
+        <button class="addBtn" v-on:click="openPopUp(indexDay)">+</button>
         <div class="itinerarys">
-          <div class="itinerary">
-            <div id="itin-name">Yu Garden</div>
-          </div>
-          <div class="itinerary">
-            <div id="itin-name">Starbucks Reserve Roastery</div>
-          </div>
-          <div class="itinerary">
-            <div id="itin-name">The Jade Buddha Temple</div>
-          </div>
-          <div class="itinerary">
-            <div id="itin-name">The Shanghai Museum</div>
+          <div
+            class="itinerary"
+            v-for="(itinerary, indexItinerary) in item.itinerary"
+            v-bind:key="indexItinerary"
+          >
+            <button class="deleteBtn">
+              <i
+                class="material-icons"
+                v-on:click="deleteItinerary(indexDay, indexItinerary)"
+              >
+                close
+              </i>
+            </button>
+            <!-- <button
+              class="deleteBtn"
+              v-on:click="deleteItinerary(indexDay, indexItinerary)"
+            >
+              x
+            </button> -->
+            <div>{{ itinerary.text }}</div>
           </div>
         </div>
       </div>
     </div>
-    <div class="dayWrap">
-      <div class="dayHeader">
-        <div class="day">DAY 3</div>
-        <div class="day">12/30/2019</div>
-        <div class="weather">SNOW</div>
-      </div>
-      <div class="itineraryWrap">
-        <button class="addBtn" v-on:click="openPopUp(true)">+</button>
-        <div class="itinerary">
-          <div id="itin-name">The Oriental Pearl Tower</div>
-        </div>
-      </div>
-    </div>
-    <popup v-show="this.showPopUp === true" v-on:closePopUp="closePopUp" />
+    <popup v-show="this.showPopUp 
+    
+true" v-on:closePopUp="closePopUp" />
   </div>
 </template>
 
@@ -60,15 +51,43 @@ export default {
     popup: Popup
   },
   data: () => ({
-    showPopUp: false
+    showPopUp: false,
+    selectedButton: null,
+    itinerarys: [
+      {
+        day: "DAY1 (12/27/2019)",
+        weather: "SUNNY",
+        itinerary: []
+      },
+      {
+        day: "DAY2 (12/28/2019)",
+        weather: "SNOW",
+        itinerary: [
+          { text: "First Place" },
+          { text: "Second Place" },
+          { text: "Third Place" },
+          { text: "Starbucks Reserve Roastery Shanghai" }
+        ]
+      },
+      {
+        day: "DAY3 (12/29/2019)",
+        weather: "SNOW",
+        itinerary: []
+      }
+    ]
   }),
   methods: {
-    openPopUp() {
+    openPopUp(index) {
+      this.selectedButton = index;
       this.showPopUp = true;
     },
     closePopUp(plan) {
+      const selectedIndex = this.selectedButton;
       this.showPopUp = false;
-      alert(plan);
+      this.itinerarys[selectedIndex].itinerary.push({ text: plan });
+    },
+    deleteItinerary(indexDay, indexItinerary) {
+      this.itinerarys[indexDay].itinerary.splice(indexItinerary, 1);
     }
   }
 };
@@ -113,6 +132,7 @@ export default {
   overflow-y: scroll;
 }
 .itinerary {
+  position: relative;
   width: 90%;
   height: 100px;
   margin: 15px auto;
@@ -120,6 +140,9 @@ export default {
   border-radius: 15px;
   background: #383733;
   color: white;
+}
+.itinerary:last-child {
+  margin-bottom: 70px;
 }
 
 #itin-name {
@@ -129,9 +152,9 @@ export default {
   text-align: center;
   font-size: 13pt;
 }
-
 .addBtn {
   font-weight: bold;
+  z-index: 1;
   width: 101%;
   height: 50px;
   position: absolute;
@@ -144,5 +167,23 @@ export default {
   background: rgba(63, 80, 181, 1);
   color: white;
   cursor: pointer;
+}
+.deleteBtn {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 28px;
+  height: 28px;
+  background: #efefef;
+  color: #333;
+  border-radius: 50%;
+}
+.deleteBtn i {
+  font-size: 18px;
+}
+button:focus {
+  outline: 0;
 }
 </style>
