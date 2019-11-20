@@ -41,8 +41,8 @@ export default {
   data: () => ({
     country: null,
     city: null,
-    tripStart: null,
-    tripEnd: null,
+    tripStart: localStorage.tripStart,
+    tripEnd: localStorage.tripEnd,
     duration: null,
     fromCurrency: "JPY",
     toCurrency: null,
@@ -57,7 +57,7 @@ export default {
 
     const start = new Date(localStorage.tripStart);
     const end = new Date(localStorage.tripEnd);
-    this.duration = (end.getTime() - start.getTime()) / 86400000;
+    this.duration = 1 + Number((end.getTime() - start.getTime())) / 86400000;
 
     this.toCurrency = countryDetails.filter(
       item => item.country === localStorage.country
