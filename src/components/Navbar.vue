@@ -1,29 +1,30 @@
 <template>
   <header class="navbar">
-    <img alt="planit" class="logo" src="../assets/logo.png" />
+    <img alt="planit" class="logo" src="../assets/planit-logo.png" />
+
     <div id="links">
       <div class="nav-item">
-        <router-link to="/">Info</router-link>
-      </div>
-
-      <div v-if="!isUserLoggedIn" class="nav-item">
-        <router-link to="/dashboard">Dashboard</router-link>
-      </div>
-
-      <div v-if="!isUserLoggedIn" class="nav-item">
-        <router-link to="/login">Login</router-link>
+        <router-link to="/">INFO</router-link>
       </div>
 
       <div v-if="isUserLoggedIn" class="nav-item">
-        <a>Logout</a>
+        <router-link to="/dashboard">DASHBOARD</router-link>
       </div>
 
-      <img
-        v-if="isUserLoggedIn"
-        class="user-picture can-hide"
-        :src="user.photoURL"
-        alt="Avatar"
-      />
+      <div v-if="!isUserLoggedIn" class="nav-item">
+        <router-link to="/login">LOGIN</router-link>
+      </div>
+
+      <div v-if="isUserLoggedIn" class="nav-item">
+        <a>LOGOUT</a>
+      </div>
+
+      <!-- <img
+          v-if="isUserLoggedIn"
+          class="user-picture"
+          :src="user.photoURL"
+          alt="Avatar"
+        /> -->
     </div>
   </header>
 </template>
@@ -31,40 +32,50 @@
 <script>
 export default {
   name: "Navbar",
-  data() {
-    return {};
-  }
+  data: () => ({
+    isUserLoggedIn: true
+  })
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .navbar {
-  height: 100px;
+  height: 130px;
   box-sizing: border-box;
   border-bottom: 1px solid #eaecef;
   display: flex;
+  align-items: center;
+}
+
+a {
+  color: #383733;
 }
 
 .logo {
-  height: 50px;
-  width: 50px;
+  height: 80px;
   margin: 1rem;
+}
+
+#links {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.nav-item {
+  margin: 0.5rem;
+}
+
+user {
+  max-height: 32px;
+  margin-left: 1.5rem;
+  border-radius: 50%;
 }
 
 .user-picture {
   max-height: 32px;
   margin-left: 1.5rem;
   border-radius: 50%;
-}
-
-#links {
-  width: 30%;
-  display: flex;
-  flex-direction: row;
-}
-
-.nav-item {
-  margin: 1rem;
 }
 </style>
