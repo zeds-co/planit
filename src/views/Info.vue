@@ -77,7 +77,7 @@ export default {
   },
   filters: {
     moment: function(date) {
-      return moment(date).format("LL");
+      return moment(date).format("ddd MMM D YYYY");
     }
   }
 };

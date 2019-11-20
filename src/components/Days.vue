@@ -1,24 +1,42 @@
 <template>
   <div class="contents">
-    <div class="dayWrap" v-for="(item, index) in itinerarys" v-bind:key="index">
+    <div
+      class="dayWrap"
+      v-for="(item, indexDay) in itinerarys"
+      v-bind:key="indexDay"
+    >
       <div class="dayHeader">
         <div class="day">{{ item.day }}</div>
         <div class="weather">{{ item.weather }}</div>
       </div>
       <div class="itineraryWrap">
-        <button class="addBtn" v-on:click="openPopUp(index)">+</button>
+        <button class="addBtn" v-on:click="openPopUp(indexDay)">+</button>
         <div class="itinerarys">
           <div
             class="itinerary"
-            v-for="(itinerary, index) in item.itinerary"
-            v-bind:key="index"
+            v-for="(itinerary, indexItinerary) in item.itinerary"
+            v-bind:key="indexItinerary"
           >
+            <button class="deleteBtn">
+              <i
+                class="material-icons"
+                v-on:click="deleteItinerary(indexDay, indexItinerary)"
+              >
+                close
+              </i>
+            </button>
+            <!-- <button
+              class="deleteBtn"
+              v-on:click="deleteItinerary(indexDay, indexItinerary)"
+            >
+              x
+            </button> -->
             <div>{{ itinerary.text }}</div>
           </div>
         </div>
       </div>
     </div>
-    <popup v-show="this.showPopUp === true" v-on:closePopUp="closePopUp" />
+    <popup v-show="this.showPopUp" v-on:closePopUp="closePopUp" />
   </div>
 </template>
 
@@ -65,6 +83,9 @@ export default {
       const selectedIndex = this.selectedButton;
       this.showPopUp = false;
       this.itinerarys[selectedIndex].itinerary.push({ text: plan });
+    },
+    deleteItinerary(indexDay, indexItinerary) {
+      this.itinerarys[indexDay].itinerary.splice(indexItinerary, 1);
     }
   }
 };
@@ -109,6 +130,7 @@ export default {
   overflow-y: scroll;
 }
 .itinerary {
+  position: relative;
   width: 90%;
   height: 100px;
   margin: 15px auto;
@@ -128,9 +150,9 @@ export default {
   text-align: center;
   font-size: 13pt;
 }
-
 .addBtn {
   font-weight: bold;
+  z-index: 1;
   width: 101%;
   height: 50px;
   position: absolute;
@@ -143,5 +165,23 @@ export default {
   background: rgba(63, 80, 181, 1);
   color: white;
   cursor: pointer;
+}
+.deleteBtn {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 28px;
+  height: 28px;
+  background: #efefef;
+  color: #333;
+  border-radius: 50%;
+}
+.deleteBtn i {
+  font-size: 18px;
+}
+button:focus {
+  outline: 0;
 }
 </style>
