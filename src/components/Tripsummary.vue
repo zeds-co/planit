@@ -7,6 +7,7 @@
           {{ duration }} DAY TRIP |
           {{
             `${this.tripStart
+              .toString()
               .toUpperCase()
               .split(" ")
               .slice(0, 3)
