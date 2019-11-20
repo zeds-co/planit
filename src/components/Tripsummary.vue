@@ -3,28 +3,17 @@
     <div class="header">
       <div class="locationWrap">
         <div class="location">{{ `${city}, ${country}` }}</div>
-        <div class="term">
-          {{ duration }} DAY TRIP |
-          {{
-            `${this.tripStart
-              .toString()
-              .toUpperCase()
-              .split(" ")
-              .slice(0, 3)
-              .join(" ")} ~ ${this.tripEnd
-              .toUpperCase()
-              .split(" ")
-              .slice(0, 4)
-              .join(" ")}`
-          }}
-        </div>
+        <div class="term">{{ duration }} DAY TRIP</div>
       </div>
       <div v-if="toCurrency" class="exchangeWrap">
-        <div class="exchangeRate">
-          {{ `1 ${fromCurrency} = ${exchangeRate1} ${toCurrency}` }}
-        </div>
-        <div class="exchangeRate">
-          {{ `1 ${toCurrency} = ${exchangeRate2} ${fromCurrency}` }}
+        <i class="material-icons moneyIcon">attach_money</i>
+        <div>
+          <div class="exchangeRate">
+            {{ `1 ${fromCurrency} = ${exchangeRate1} ${toCurrency}` }}
+          </div>
+          <div class="exchangeRate">
+            {{ `1 ${toCurrency} = ${exchangeRate2} ${fromCurrency}` }}
+          </div>
         </div>
       </div>
     </div>
@@ -76,7 +65,7 @@ export default {
           }
         }
       );
-      this.exchangeRate1 = exchangeRate1.data;
+      this.exchangeRate1 = exchangeRate1.data.toFixed(3);
       const exchangeRate2 = await axios.get(
         `https://currency-exchange.p.rapidapi.com/exchange?q=1&from=${this.toCurrency}&to=${this.fromCurrency}`,
         {
@@ -87,7 +76,7 @@ export default {
           }
         }
       );
-      this.exchangeRate2 = exchangeRate2.data;
+      this.exchangeRate2 = exchangeRate2.data.toFixed(3);
     },
     async fetchUserLocationInfo() {
       let ipAddress = await axios("http://ipinfo.io");
@@ -119,13 +108,44 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 .location {
   font-size: 42px;
 }
-
+.exchangeWrap {
+  display: flex;
+  padding: 10px;
+  background: #333;
+  margin-left: 70px;
+  color: #fff;
+  border-radius: 15px;
+}
 .exchange-title {
   font-weight: bold;
   margin: 5px 5px 5px 0px;
+}
+.exchangeRate {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+.moneyIcon {
+  font-size: 40px;
+  height: 44px;
+  line-height: 44px;
+}
+@media screen and (max-width: 480px) {
+  .header {
+    display: inline-block;
+  }
+  .location {
+    font-size: 30px;
+  }
+  .term {
+    margin-bottom: 10px;
+  }
+  .exchangeWrap {
+    margin: 0 15%;
+  }
 }
 </style>

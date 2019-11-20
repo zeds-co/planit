@@ -2,7 +2,15 @@
   <div class="contents">
     <div class="dayWrap" v-for="(item, indexDay) in days" v-bind:key="indexDay">
       <div class="dayHeader">
-        <div class="day">{{ item.day }}</div>
+        <div class="day">
+          {{ item.day.split(" ")[0] + " " + item.day.split(" ")[1] }}
+        </div>
+        <div class="date">{{ item.day.split(" ")[2] }}</div>
+        <router-link to="/map"
+          ><img
+            id="map-icon"
+            src="https://img.icons8.com/wired/64/000000/google-maps.png"
+        /></router-link>
         <div class="weather">{{ item.weather }}</div>
       </div>
       <div class="itineraryWrap">
@@ -62,8 +70,8 @@ export default {
       let date = new Date(this.startDate);
       for (let i = 0; i < duration; i++) {
         this.days.push({
-          day: `DAY ${i + 1} (${date.getMonth() +
-            1}/${date.getDate()}/${date.getFullYear()})`,
+          day: `DAY ${i + 1} ${date.getMonth() +
+            1}/${date.getDate()}/${date.getFullYear()}`,
           weather: "",
           itinerary: []
         });
@@ -106,16 +114,34 @@ export default {
   padding: 10px;
   margin-top: 30px;
 }
+
+.day {
+  border-radius: 15px 15px 0px 0px;
+  background: #383733;
+  color: white;
+  font-size: 16pt;
+  padding: 12px;
+}
+
+.date {
+}
+
 .dayHeader {
   display: flex;
   justify-content: space-between;
-  margin: 15px;
+  align-items: center;
+  margin: 15px 15px 0px 15px;
   font-size: 20px;
 }
 .dayWrap {
   height: 550px;
-  flex: 0 0 350px;
+  flex: 0 0 345px;
 }
+
+#map-icon {
+  width: 30px;
+}
+
 .itineraryWrap {
   overflow: hidden;
   background: rgb(156, 169, 248);
@@ -126,8 +152,8 @@ export default {
   );
   position: relative;
   border: 3px solid #383733;
-  border-radius: 15px;
-  margin: 15px;
+  border-radius: 0px 15px 15px 15px;
+  margin: 0px 15px 15px 15px;
   height: 450px;
   flex: 0 0 350px;
 }
@@ -192,5 +218,13 @@ export default {
 }
 button:focus {
   outline: 0;
+}
+@media screen and (max-width: 480px) {
+  .contents {
+    margin-top: 10px !important;
+  }
+  .itineraryWrap {
+    margin-left: 5px;
+  }
 }
 </style>
