@@ -1,16 +1,12 @@
 <template>
   <div class="info">
-    <div id="info-item" v-if="!isNaN(duration)">{{ duration }}</div>
-    <div id="info-item" v-if="city !== null && country !== null">
-      {{ `${city}, ${country}` }}
-    </div>
     <Location
-      id="info-item"
+      class="info-item"
       v-on:city-change="city => onCityChange(city)"
       v-on:country-change="country => onCountryChange(country)"
     />
     <Time
-      id="info-item"
+      class="info-item"
       v-on:start-input="start => onStartInput(start)"
       v-on:end-input="end => onEndInput(end)"
     />
@@ -104,14 +100,15 @@ export default {
   align-items: center;
   justify-content: center;
   min-height: 100%;
-  height: 600px;
 }
 
-#info-item {
+.info-item {
   margin: 10px;
-  width: 500px;
+  width: 100%;
 }
-
+.info-item h1 {
+  font-size: 28px;
+}
 input {
   font-family: Alata;
   font-size: 10pt;
@@ -138,7 +135,8 @@ input {
   min-height: 22px;
   color: #b53f3f;
 }
-input[type="text"]:focus {
+input[type="text"]:focus,
+select:focus {
   outline: 0;
   border: 5px solid #eaecef;
 }
