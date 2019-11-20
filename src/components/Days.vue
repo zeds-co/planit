@@ -2,7 +2,7 @@
   <div class="contents">
     <div
       class="dayWrap"
-      v-for="(item, indexDay) in days"
+      v-for="(item, indexDay) in itinerarys"
       v-bind:key="indexDay"
     >{{days.map(day => day.itinerary)}}
       <div class="dayHeader">
@@ -36,14 +36,13 @@
         </div>
       </div>
     </div>
-    <!-- <popup v-show="this.showPopUp=true" v-on:closePopUp="closePopUp" /> -->
     <popup v-show="this.showPopUp" v-on:closePopUp="closePopUp" />
   </div>
 </template>
 
 <script>
 import Popup from "./Popup";
-import axios from "axios";
+
 export default {
   name: "Days",
   components: {
@@ -51,37 +50,30 @@ export default {
   },
   data: () => ({
     showPopUp: false,
-    data: null,
-    duration: localStorage.duration,
-    startDate: new Date(localStorage.tripStart),
-    endDate: new Date(localStorage.tripEnd),
     selectedButton: null,
-    days: [
-      // {
-      //   day: "DAY1 (12/27/2019)",
-      //   weather: "SUNNY",
-      //   itinerary: []
-      // },
-      // {
-      //   day: "DAY2 (12/28/2019)",
-      //   weather: "SNOW",
-      //   itinerary: [
-      //     { text: "First Place" },
-      //     { text: "Second Place" },
-      //     { text: "Third Place" },
-      //     { text: "Starbucks Reserve Roastery Shanghai" }
-      //   ]
-      // },
-      // {
-      //   day: "DAY3 (12/29/2019)",
-      //   weather: "SNOW",
-      //   itinerary: []
-      // }
+    itinerarys: [
+      {
+        day: "DAY1 (12/27/2019)",
+        weather: "SUNNY",
+        itinerary: []
+      },
+      {
+        day: "DAY2 (12/28/2019)",
+        weather: "SNOW",
+        itinerary: [
+          { text: "First Place" },
+          { text: "Second Place" },
+          { text: "Third Place" },
+          { text: "Starbucks Reserve Roastery Shanghai" }
+        ]
+      },
+      {
+        day: "DAY3 (12/29/2019)",
+        weather: "SNOW",
+        itinerary: []
+      }
     ]
   }),
-  mounted() {
-    this.createDays(this.duration);
-  },
   methods: {
     createDays(duration) {
       let date = this.startDate;
