@@ -4,7 +4,7 @@
       <div class="locationWrap">
         <div class="location">{{ `${city}, ${country}` }}</div>
         <div class="term">
-          {{ duration }} DAY TRIP ( {{ `${this.tripStart}-${this.tripEnd}` }} )
+          {{ duration }} DAY TRIP | {{ `${this.tripStart}-${this.tripEnd}` }}
         </div>
       </div>
       <div class="exchangeWrap">
@@ -99,8 +99,14 @@ export default {
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .location {
   font-size: 42px;
+}
+
+.exchange-title {
+  font-weight: bold;
+  margin: 5px 5px 5px 0px;
 }
 </style>

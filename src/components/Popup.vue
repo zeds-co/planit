@@ -13,9 +13,6 @@
 <script>
 export default {
   name: "Popup",
-  props: {
-    itinerarys: []
-  },
   methods: {
     closePopUp() {
       const plan = document.getElementById("planText").value;

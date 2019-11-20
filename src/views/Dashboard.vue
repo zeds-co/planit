@@ -37,6 +37,7 @@ export default {
   height: 80%;
   padding: 10px;
   margin-top: 50px;
+  border-radius: 15px;
 }
 .dayHeader {
   display: flex;
@@ -57,11 +58,5 @@ export default {
   height: 100px;
   border: 1px #ccc solid;
   margin: 15px auto;
-}
-.addBtn {
-  width: 50px;
-  height: 50px;
-  font-size: 30px;
-  border: none;
 }
 </style>

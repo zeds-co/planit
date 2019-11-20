@@ -19,18 +19,28 @@ export default {
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css?family=Alata&display=swap");
+
 * {
   box-sizing: border-box;
+  padding: 0;
+  /* margin: auto; */
 }
 
 body {
   margin: 1rem;
   /* padding: 1rem; */
+  background: rgb(232, 232, 232);
+  background: linear-gradient(
+    3deg,
+    rgba(232, 232, 232, 1) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
 }
 #app {
-  font-family: Arial;
+  font-family: "Alata", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color: #383733;
 }
 </style>

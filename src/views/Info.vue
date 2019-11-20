@@ -1,18 +1,22 @@
 <template>
   <div class="info">
-    <div>{{ duration }}</div>
-    <div v-if="city !== null && country !== null">
+    <div id="info-item">{{ duration }}</div>
+    <div id="info-item" v-if="city !== null && country !== null">
       {{ `${city}, ${country}` }}
     </div>
     <Location
+      id="info-item"
       v-on:city-change="city => onCityChange(city)"
       v-on:country-change="country => onCountryChange(country)"
     />
     <Time
+      id="info-item"
       v-on:start-input="start => onStartInput(start)"
       v-on:end-input="end => onEndInput(end)"
     />
-    <button type="button" v-on:click="onClick()">Submit</button>
+    <button type="button" class="submit" v-on:click="onClick()">
+      PLANIT »
+    </button>
   </div>
 </template>
 
@@ -70,4 +74,43 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped></style>
+<style>
+@import url("https://fonts.googleapis.com/css?family=Alata&display=swap");
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  height: 600px;
+}
+
+#info-item {
+  margin: 10px;
+  width: 500px;
+}
+
+input {
+  font-family: Alata;
+  font-size: 10pt;
+  text-align: center;
+  height: 50px;
+  border: 2px solid #eaecef;
+  border-radius: 15px;
+}
+
+.submit {
+  background: #3f50b5;
+  letter-spacing: 5px;
+  font-family: Alata;
+  font-weight: bold;
+  font-size: 18pt;
+  border: 3px solid #383733;
+  border-radius: 15px;
+  color: white;
+  padding: 1rem;
+  margin: 1rem;
+  width: 300px;
+}
+</style>
