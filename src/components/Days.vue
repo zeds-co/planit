@@ -2,9 +2,9 @@
   <div class="contents">
     <div
       class="dayWrap"
-      v-for="(item, indexDay) in itinerarys"
+      v-for="(item, indexDay) in days"
       v-bind:key="indexDay"
-    >{{days.map(day => day.itinerary)}}
+    >
       <div class="dayHeader">
         <div class="day">{{ item.day }}</div>
         <div class="weather">{{ item.weather }}</div>
@@ -42,7 +42,7 @@
 
 <script>
 import Popup from "./Popup";
-
+// import axios from "axios";
 export default {
   name: "Days",
   components: {
@@ -51,32 +51,17 @@ export default {
   data: () => ({
     showPopUp: false,
     selectedButton: null,
-    itinerarys: [
-      {
-        day: "DAY1 (12/27/2019)",
-        weather: "SUNNY",
-        itinerary: []
-      },
-      {
-        day: "DAY2 (12/28/2019)",
-        weather: "SNOW",
-        itinerary: [
-          { text: "First Place" },
-          { text: "Second Place" },
-          { text: "Third Place" },
-          { text: "Starbucks Reserve Roastery Shanghai" }
-        ]
-      },
-      {
-        day: "DAY3 (12/29/2019)",
-        weather: "SNOW",
-        itinerary: []
-      }
-    ]
+    days: [],
+    duration: localStorage.duration,
+    startDate: localStorage.tripStart,
+    endDate: localStorage.tripEnd
   }),
+  mounted() {
+    this.createDays(this.duration)
+  },
   methods: {
     createDays(duration) {
-      let date = this.startDate;
+      let date = new Date(this.startDate);
       for (let i = 0; i < duration; i++) {
         this.days.push({
           day: `DAY ${i + 1} (${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()})` ,
@@ -86,23 +71,23 @@ export default {
         date.setDate(date.getDate() + 1);
       }
     },
-    getWeather() {
-      axios
-      .get("https://community-open-weather-map.p.rapidapi.com/forecast/daily",
-      { params: 
-        {"q": "san francisco,us",
-        "lat": "35",
-        "lon": "139",
-        "cnt": "10",
-        "units": "metric or imperial"
-        },
-        header:
-        {"x-rapidapi-host": "community-open-weather-map.p.rapidapi.com",
-        "x-rapidapi-key": "b6e4f9fc03msh80db2bc55980af4p181a67jsnb4b3c557714d"
-        }
-    })
-    .then(response => this.data = response);
-    },
+    // getWeather() {
+    //   axios
+    //   .get("https://community-open-weather-map.p.rapidapi.com/forecast/daily",
+    //   { params: 
+    //     {"q": "san francisco,us",
+    //     "lat": "35",
+    //     "lon": "139",
+    //     "cnt": "10",
+    //     "units": "metric or imperial"
+    //     },
+    //     header:
+    //     {"x-rapidapi-host": "community-open-weather-map.p.rapidapi.com",
+    //     "x-rapidapi-key": "b6e4f9fc03msh80db2bc55980af4p181a67jsnb4b3c557714d"
+    //     }
+    // })
+    // .then(response => this.data = response);
+    // },
     openPopUp(index) {
       this.selectedButton = index;
       this.showPopUp = true;
