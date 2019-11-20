@@ -4,7 +4,7 @@
       class="dayWrap"
       v-for="(item, indexDay) in days"
       v-bind:key="indexDay"
-    >
+    >{{days}}
       <div class="dayHeader">
         <div class="day">{{ item.day }}</div>
         <div class="weather">{{ item.weather }}</div>
@@ -53,6 +53,8 @@ export default {
     showPopUp: false,
     data: null,
     duration: localStorage.duration,
+    startDate: new Date(localStorage.tripStart),
+    endDate: new Date(localStorage.tripEnd),
     selectedButton: null,
     days: [
       {
@@ -77,27 +79,34 @@ export default {
       }
     ]
   }),
-  mounted: () => {
-    axios
-    .get("https://community-open-weather-map.p.rapidapi.com/forecast/daily",
-    { params: 
-      {"q": "san francisco,us",
-      "lat": "35",
-      "lon": "139",
-      "cnt": "10",
-      "units": "metric or imperial"
-      },
-      header:
-      {"x-rapidapi-host": "community-open-weather-map.p.rapidapi.com",
-      "x-rapidapi-key": "b6e4f9fc03msh80db2bc55980af4p181a67jsnb4b3c557714d"
-      }
-    })
-    .then(response => this.data = response);
+  mounted() {
+    this.createDays(this.duration);
   },
   methods: {
     createDays(duration) {
-      for (let i = 0; i < duration; i++)
-    }
+      for (let i = 0; i < duration; i++) {
+        this.days.push({
+          day: `DAY ${i + 1} (${this.startDate.getMonth()}/${this.startDate.getDay + i}, ${this.startDate.getFullYear()})` 
+        })
+      }
+    },
+    getWeather() {
+      axios
+      .get("https://community-open-weather-map.p.rapidapi.com/forecast/daily",
+      { params: 
+        {"q": "san francisco,us",
+        "lat": "35",
+        "lon": "139",
+        "cnt": "10",
+        "units": "metric or imperial"
+        },
+        header:
+        {"x-rapidapi-host": "community-open-weather-map.p.rapidapi.com",
+        "x-rapidapi-key": "b6e4f9fc03msh80db2bc55980af4p181a67jsnb4b3c557714d"
+        }
+    })
+    .then(response => this.data = response);
+    },
     openPopUp(index) {
       this.selectedButton = index;
       this.showPopUp = true;
