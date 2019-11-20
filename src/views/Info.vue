@@ -1,13 +1,18 @@
 <template>
   <div class="info">
     <div>{{ duration }}</div>
-    <div>{{ tripLocation }}</div>
-    <Location v-on:location-change="location => onLocationChange(location)" />
+    <div v-if="city !== null && country !== null">
+      {{ `${city}, ${country}` }}
+    </div>
+    <Location
+      v-on:city-change="city => onCityChange(city)"
+      v-on:country-change="country => onCountryChange(country)"
+    />
     <Time
       v-on:start-input="start => onStartInput(start)"
       v-on:end-input="end => onEndInput(end)"
     />
-    <button type="button">Submit</button>
+    <button type="button" v-on:click="onClick()">Submit</button>
   </div>
 </template>
 
@@ -22,15 +27,19 @@ export default {
   },
   data: () => {
     return {
-      tripLocation: null,
+      country: null,
+      city: null,
       tripStart: null,
       tripEnd: null,
       duration: null
     };
   },
   methods: {
-    onLocationChange(location) {
-      this.tripLocation = location;
+    onCountryChange(country) {
+      this.country = country;
+    },
+    onCityChange(city) {
+      this.city = city;
     },
     onStartInput(start) {
       this.tripStart = start;
@@ -46,6 +55,14 @@ export default {
         const startDate = new Date(this.tripStart);
         const endDate = new Date(this.tripEnd);
         this.duration = (endDate.getTime() - startDate.getTime()) / 86400000;
+      }
+    },
+    onClick() {
+      if (this.country && this.city && this.tripStart && this.tripEnd) {
+        localStorage.country = this.country;
+        localStorage.city = this.city;
+        localStorage.tripStart = this.tripStart;
+        localStorage.tripEnd = this.tripEnd;
       }
     }
   }
