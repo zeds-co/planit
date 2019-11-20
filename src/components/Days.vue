@@ -27,7 +27,6 @@
             >
               x
             </button> -->
-            <div>{{ wheather }}</div>
             <div>{{ itinerary.text }}</div>
           </div>
         </div>
@@ -39,7 +38,7 @@
 
 <script>
 import Popup from "./Popup";
-import axios from "axios";
+// import axios from "axios";
 export default {
   name: "Days",
   components: {
@@ -47,38 +46,45 @@ export default {
   },
   data: () => ({
     showPopUp: false,
-    weather: null,
+    selectedButton: null,
+    days: [],
     duration: localStorage.duration,
     startDate: localStorage.tripStart,
-    endDate: localStorage.tripEnd,
-    selectedButton: null,
-    days: []
+    endDate: localStorage.tripEnd
   }),
   mounted() {
     this.createDays(this.duration);
-    this.getWeather();
   },
   methods: {
     createDays(duration) {
       let date = new Date(this.startDate);
       for (let i = 0; i < duration; i++) {
         this.days.push({
-          day: `DAY ${i + 1} (${this.startDate.getMonth() +
-            1}/${this.startDate.getDate() + i}/${this.startDate.getFullYear()})`
+          day: `DAY ${i + 1} (${date.getMonth() +
+            1}/${date.getDate()}/${date.getFullYear()})`,
+          weather: "",
+          itinerary: []
         });
         date.setDate(date.getDate() + 1);
       }
     },
-    getWeather() {
-      axios
-        .get(
-          "api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=01cd0fb825adbf948e05b406259dddf5"
-        )
-        .then(response => {
-          this.weather = response.data;
-          localStorage.weather = response.data;
-        });
-    },
+    // getWeather() {
+    //   axios
+    //   .get("https://community-open-weather-map.p.rapidapi.com/forecast/daily",
+    //   { params:
+    //     {"q": "san francisco,us",
+    //     "lat": "35",
+    //     "lon": "139",
+    //     "cnt": "10",
+    //     "units": "metric or imperial"
+    //     },
+    //     header:
+    //     {"x-rapidapi-host": "community-open-weather-map.p.rapidapi.com",
+    //     "x-rapidapi-key": "b6e4f9fc03msh80db2bc55980af4p181a67jsnb4b3c557714d"
+    //     }
+    // })
+    // .then(response => this.data = response);
+    // },
     openPopUp(index) {
       this.selectedButton = index;
       this.showPopUp = true;
@@ -134,11 +140,9 @@ export default {
   height: 100%;
   overflow-y: scroll;
 }
-
 .itinerary::-webkit-scrollbar {
   width: 0 !important;
 }
-
 .itinerary {
   position: relative;
   width: 90%;
@@ -153,7 +157,6 @@ export default {
 .itinerary:last-child {
   margin-bottom: 70px;
 }
-
 #itin-name {
   font-weight: bold;
   font-size: 20pt;
