@@ -2,28 +2,22 @@
   <div class="locationWrap">
     <h1>Where is your destination?</h1>
     <div class="location">
-      <select @change="e => onCountryChange(e.target.value)">
+      <select
+        class="country-select"
+        @change="e => onCountryChange(e.target.value)"
+      >
         <option
           v-for="country in countries"
           :key="country.countryCode"
-          :value="country.countryName"
+          :value="country.countryCode + country.countryName"
           >{{ country.countryName }}</option
         >
       </select>
-      <select @change="e => onCityChange(e.target.value)">
+      <select class="city-select" @change="e => onCityChange(e.target.value)">
         <option v-for="city in cities" :key="city" :value="city">{{
           city
         }}</option>
       </select>
-
-      <input
-        type="text"
-        placeholder="CITY"
-        id="city"
-        name="trip-city"
-        size="15"
-        @change="e => onCityChange(e.target.value)"
-      />
     </div>
   </div>
 </template>
@@ -44,16 +38,22 @@ export default {
     }));
   },
   methods: {
-    async onCountryChange(countryName, countryCode) {
+    async onCountryChange(string) {
+      const countryCode = string.slice(0, 2);
+      const countryName = string.slice(2);
       this.$emit("country-change", countryName);
+
       const cities = await axios.get(
-        `https://wft-geo-db.p.rapidapi.com/v1/geo/cities?countryIds=${countryCode}`,
+        `https://wft-geo-db.p.rapidapi.com/v1/geo/cities?limit=10&countryIds=${countryCode}`,
         {
-          "x-rapidapi-host": "wft-geo-db.p.rapidapi.com",
-          "x-rapidapi-key": "f8458b1c78msh0cabb0870fc79a6p1d44adjsn84de5db4361c"
+          headers: {
+            "x-rapidapi-host": "wft-geo-db.p.rapidapi.com",
+            "x-rapidapi-key":
+              "f8458b1c78msh0cabb0870fc79a6p1d44adjsn84de5db4361c"
+          }
         }
       );
-      this.cities = cities;
+      this.cities = cities.data.data.map(item => item.city);
     },
     onCityChange(city) {
       this.$emit("city-change", city);
