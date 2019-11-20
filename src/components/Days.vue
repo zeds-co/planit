@@ -4,7 +4,7 @@
       class="dayWrap"
       v-for="(item, indexDay) in days"
       v-bind:key="indexDay"
-    >{{days.map(day => day.itinerary)}}
+    ><!-- {{days.map(day => day.itinerary)}} -->
       <div class="dayHeader">
         <div class="day">{{ item.day }}</div>
         <div class="weather">{{ item.weather }}</div>
