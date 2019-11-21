@@ -6,7 +6,7 @@
         <input class="popupInput" type="text" id="planText" />
       </p>
       <div class="buttons">
-        <button v-on:click="closePopUp" class="cancelBtn">CANCEL</button
+        <button v-on:click="cancelPopUp" class="cancelBtn">CANCEL</button
         ><button v-on:click="closePopUp" class="addBtn">ADD</button>
       </div>
     </div>
@@ -17,9 +17,17 @@
 export default {
   name: "Popup",
   methods: {
+    cancelPopUp() {
+      this.$emit("cancelPopUp");
+      document.getElementById("planText").value = "";
+    },
     closePopUp() {
       const input = document.getElementById("planText").value;
-      this.$emit("closePopUp", input);
+      if (input === "") {
+        this.$emit("cancelPopUp");
+      } else {
+        this.$emit("closePopUp", input);
+      }
       document.getElementById("planText").value = "";
     }
   }
