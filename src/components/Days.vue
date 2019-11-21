@@ -119,7 +119,7 @@ export default {
       const selectedIndex = this.selectedButton;
       this.showPopUp = false;
       this.days[selectedIndex].itinerary.push({ text: plan });
-      localStorage.days = this.days;
+      localStorage.days = JSON.stringify(this.days);
     },
     deleteItinerary(indexDay, indexItinerary) {
       this.days[indexDay].itinerary.splice(indexItinerary, 1);

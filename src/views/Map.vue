@@ -14,40 +14,209 @@
         :icon="'http://maps.google.com/mapfiles/ms/icons/orange-dot.png'"
       />
     </GmapMap>
+    <div class="dayWrap">
+      <div class="dayHeader">
+        <div>{{ indexDay }}</div>
+        <div class="day">
+          {{ day.split(" ")[0] + " " + day.split(" ")[1] }}
+        </div>
+        <div class="date">{{ day.split(" ")[2] }}</div>
+      </div>
+      <div class="itineraryWrap">
+        <div class="itinerarys">
+          <div
+            class="itinerary"
+            v-for="(task, indexTask) in itinerary"
+            v-bind:key="indexTask"
+          >
+            <div>{{ task.text }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { gmapApi } from "vue2-google-maps";
+import axios from "axios";
+// import { gmapApi } from "vue2-google-maps";
 // import * as GmapCustomMarker from "vue2-gmap-custom-marker";
 export default {
   name: "Map",
   data: () => {
     return {
+      city: "",
+      country: "",
+      indexDay: "",
       zoom: 13,
       center: {
-        lat: 40,
-        lng: -96.9903
+        lat: 31.2304,
+        lng: 121.4737
       },
+      day: "",
+      weather: "",
       itinerary: [
         {
           text: "Yu Garden",
           position: {
-            lat: 40,
-            lng: -93
+            lat: 31.2304,
+            lng: 121.4737
           }
         }
       ]
     };
   },
-  // components: {
-  //   "gmap-custom-marker": GmapCustomMarker
-  // },
-  computed: {
-    google: gmapApi
+  mounted() {
+    const { indexDay } = this.$route.params;
+    const data = JSON.parse(localStorage.days)[indexDay];
+    this.city = localStorage.city;
+    this.country = localStorage.country;
+    this.day = data.day;
+    this.weather = data.weather;
+    this.itinerary = data.itinerary;
+    this.getPosition("Yu Garden");
+    // this.itinerary.forEach(item => item.position)
+  },
+  methods: {
+    async getPosition(text) {
+      let searchString = text.split(" ");
+      searchString.push(this.city);
+      searchString.push(this.country);
+      searchString = searchString.join("%20");
+      const position = await axios.get(
+        `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${searchString}&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyDJ3sPnmTBMN1DZGJBX9gxuNg-O9mgHOAo`
+      );
+      localStorage.position = JSON.stringify(position);
+    }
   }
+  // computed() {
+  //   google: gmapApi;
+  // }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped></style>
+<style scoped>
+.contents {
+  display: flex;
+  overflow-x: scroll;
+  background: white;
+  height: 80%;
+  padding: 10px;
+  margin-top: 30px;
+}
+
+.day {
+  border-radius: 15px 15px 0px 0px;
+  background: #383733;
+  color: white;
+  font-size: 16pt;
+  padding: 12px;
+}
+
+.date {
+}
+
+.dayHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 15px 0px 15px;
+  font-size: 20px;
+}
+.dayWrap {
+  height: 550px;
+  flex: 0 0 345px;
+}
+
+#map-icon {
+  width: 30px;
+  padding: 2px 0px 0px 5px;
+}
+
+.itineraryWrap {
+  overflow: hidden;
+  background: rgb(156, 169, 248);
+  background: linear-gradient(
+    3deg,
+    rgba(156, 169, 248, 1) 0%,
+    rgba(63, 80, 181, 1) 100%
+  );
+  position: relative;
+  border: 3px solid #383733;
+  border-radius: 0px 15px 15px 15px;
+  margin: 0px 15px 15px 15px;
+  height: 450px;
+  flex: 0 0 350px;
+}
+.itinerarys {
+  height: 100%;
+  overflow-y: scroll;
+}
+.itinerary::-webkit-scrollbar {
+  width: 0 !important;
+}
+.itinerary {
+  position: relative;
+  width: 90%;
+  height: 100px;
+  margin: 15px auto;
+  padding: 15px;
+  text-align: center;
+  border-radius: 15px;
+  background: #383733;
+  color: white;
+}
+.itinerary:last-child {
+  margin-bottom: 70px;
+}
+#itin-name {
+  font-weight: bold;
+  font-size: 20pt;
+  padding: 5px 5px 5px 5px;
+  text-align: center;
+  font-size: 13pt;
+}
+.addBtn {
+  font-weight: bold;
+  z-index: 1;
+  width: 101%;
+  height: 50px;
+  position: absolute;
+  bottom: 0;
+  left: -1.5px;
+  font-size: 30px;
+  border: 5px solid rgba(63, 80, 181, 1);
+  border-radius: 0px 0px 13px 13px;
+  font-size: 30px;
+  background: rgba(63, 80, 181, 1);
+  color: white;
+  cursor: pointer;
+}
+.deleteBtn {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 28px;
+  height: 28px;
+  background: #efefef;
+  color: #333;
+  border-radius: 50%;
+}
+.deleteBtn i {
+  font-size: 18px;
+}
+button:focus {
+  outline: 0;
+}
+@media screen and (max-width: 480px) {
+  .contents {
+    margin-top: 10px !important;
+  }
+  .itineraryWrap {
+    margin-left: 5px;
+  }
+}
+</style>
