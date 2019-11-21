@@ -6,14 +6,19 @@
           {{ item.day.split(" ")[0] + " " + item.day.split(" ")[1] }}
         </div>
         <div class="date">{{ item.day.split(" ")[2] }}</div>
+        <div class="weather" v-show="checkDate(item.unixtime, indexDay)">
+          <img
+            v-if="item.weatherIcon"
+            class="wicon"
+            :src="item.weatherIcon"
+            alt="Weather icon"
+          />
+        </div>
         <router-link to="/map"
           ><img
             id="map-icon"
             src="https://img.icons8.com/ios-glyphs/30/000000/google-maps.png"
         /></router-link>
-        <div class="weather" v-show="checkDate(item.unixtime, indexDay)">
-          {{ item.weather }}
-        </div>
       </div>
       <div class="itineraryWrap">
         <button class="addBtn" v-on:click="openPopUp(indexDay)">+</button>
@@ -102,8 +107,13 @@ export default {
     },
     checkDate(day, index) {
       this.weather.list.forEach(item => {
-        if (item.dt - 24 * 60 * 60 < day && day <= item.dt) {
+        if (item.dt <= day && day < item.dt + 24 * 60 * 60) {
           this.days[index].weather = item.weather[0].main;
+          this.days[index].weatherIcon =
+            "http://openweathermap.org/img/w/" + item.weather[0].icon + ".png";
+          // this.days[index].weather = new Date(item.dt * 1000).toLocaleString(
+          //   "us"
+          // );
         }
       });
       return true;
@@ -242,6 +252,9 @@ export default {
 }
 button:focus {
   outline: 0;
+}
+.weather {
+  line-height: 15px;
 }
 @media screen and (max-width: 480px) {
   .contents {
