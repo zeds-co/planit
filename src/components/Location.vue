@@ -50,7 +50,7 @@ export default {
       this.$emit("country-change", countryName);
 
       const cities = await axios.get(
-        `https://wft-geo-db.p.rapidapi.com/v1/geo/cities?limit=10&countryIds=${countryCode}`,
+        `https://wft-geo-db.p.rapidapi.com/v1/geo/cities?limit=1000&countryIds=${countryCode}`,
         {
           headers: {
             "x-rapidapi-host": "wft-geo-db.p.rapidapi.com",
