@@ -1,23 +1,21 @@
 <template>
   <header class="navbar">
     <div id="links">
-      <div class="nav-item">
-        <router-link to="/">
-          <img alt="planit" class="logo" src="../assets/planit-logo.png"
-        /></router-link>
-      </div>
+      <router-link to="/">
+        <img alt="planit" class="logo" src="../assets/planit-logo.png"
+      /></router-link>
 
-      <div v-if="isUserLoggedIn" class="nav-item">
+      <!-- <div v-if="isUserLoggedIn" class="nav-item">
         <router-link to="/dashboard">DASHBOARD</router-link>
-      </div>
+      </div> -->
 
-      <div v-if="!isUserLoggedIn" class="nav-item">
+      <!-- <div v-if="!isUserLoggedIn" class="nav-item">
         <router-link to="/login">LOGIN</router-link>
       </div>
 
       <div v-if="isUserLoggedIn" class="nav-item">
         <a>LOGOUT</a>
-      </div>
+      </div> -->
 
       <!-- <img
           v-if="isUserLoggedIn"
@@ -46,6 +44,7 @@ export default {
   border-bottom: 1px solid #ceccc2;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 a {
