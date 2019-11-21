@@ -1,12 +1,12 @@
 <template>
   <div class="login">
-    <h3>Login</h3>
+    <h2>Login</h2>
     <input type="text" placeholder="email" />
     <br />
     <input type="text" placeholder="password" />
     <br />
-    <button>connection</button>
-    <p>don't have an account? create one</p>
+    <button class="submit" type="button">LOGIN</button>
+    <p>Don't have an account? <u>Create one!</u></p>
 
     <!-- <button>
       <h1>Test</h1>
@@ -88,5 +88,25 @@ export default {
 <style scoped>
 h3 {
   margin: 40px 0 0;
+}
+
+body {
+  background: none;
+}
+
+input {
+  width: 280px;
+  height: 80px;
+  font-size: 18pt;
+}
+
+.login {
+  justify-content: center;
+  text-align: center;
+}
+
+button {
+  width: 280px;
+  height: 80px;
 }
 </style>
