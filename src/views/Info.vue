@@ -49,18 +49,22 @@ export default {
       if (this.tripEnd) {
         const startDate = new Date(this.tripStart);
         const endDate = new Date(this.tripEnd);
-        this.duration = (endDate.getTime() - startDate.getTime()) / 86400000;
+        this.duration = 1 + Number((endDate.getTime() - startDate.getTime())) / 86400000;
+        localStorage.duration = this.duration;
       }
       this.tripStart = this.tripStart;
     },
     onEndInput(end) {
+      this.tripEnd = end;
+      // localStorage.tripEnd = end;
       if (end) {
         this.tripEnd = end;
         if (this.tripStart) {
           const startDate = new Date(this.tripStart);
           const endDate = new Date(this.tripEnd);
           this.duration =
-            endDate.getTime() / 86400000 - startDate.getTime() / 86400000;
+            1 + Number((endDate.getTime() - startDate.getTime())) / 86400000;
+          localStorage.duration = this.duration;
         }
       }
     },

@@ -4,15 +4,16 @@
       :zoom="zoom"
       :center="center"
       map-type-id="roadmap"
+      ref="map"
       style="width: 100%; height: 300px"
     >
-      <GmapMarker
+      <!--GmapMarker
         v-for="(task, indexTask) in itinerary"
         :ref="indexTask"
         :key="indexTask"
         :position="task.position"
         :icon="'http://maps.google.com/mapfiles/ms/icons/orange-dot.png'"
-      />
+      /-->
     </GmapMap>
     <div class="dayWrap">
       <div class="dayHeader">
@@ -55,27 +56,31 @@ export default {
       },
       day: "",
       weather: "",
-      itinerary: [
-        {
-          text: "Yu Garden",
-          position: {
-            lat: 31.2304,
-            lng: 121.4737
-          }
-        }
-      ]
+      itinerary: []
     };
   },
-  mounted() {
+  async created() {
     const { indexDay } = this.$route.params;
     const data = JSON.parse(localStorage.days)[indexDay];
     this.city = localStorage.city;
     this.country = localStorage.country;
     this.day = data.day;
     this.weather = data.weather;
-    this.itinerary = data.itinerary;
-    this.getPosition("Yu Garden");
-    // this.itinerary.forEach(item => item.position)
+    const itinerary = data.itinerary;
+    const locationInfoArr = await Promise.all(
+      itinerary.map(item => this.getPosition(item.text))
+    );
+    itinerary.forEach(
+      (item, index) =>
+        (item.position =
+          locationInfoArr[index].data.candidates[0].geometry.location)
+    );
+    this.itinerary = itinerary;
+
+    const locations = this.itinerary.map(item => item.text);
+
+    this.getDirection(locations);
+    localStorage.arr = JSON.stringify(this.itinerary);
   },
   methods: {
     async getPosition(text) {
@@ -84,9 +89,35 @@ export default {
       searchString.push(this.country);
       searchString = searchString.join("%20");
       const position = await axios.get(
-        `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${searchString}&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyDJ3sPnmTBMN1DZGJBX9gxuNg-O9mgHOAo`
+        `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${searchString}&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyDJ3sPnmTBMN1DZGJBX9gxuNg-O9mgHOAo`
       );
-      localStorage.position = JSON.stringify(position);
+      return position;
+    },
+    async getDirection(textArr) {
+      const waypoints = textArr.slice(1, textArr.length - 1).map(item => ({
+        location: item,
+        stopover: true
+      }));
+      this.$gmapApiPromiseLazy().then(() => {
+        this.directionsService = new window.google.maps.DirectionsService();
+        this.directionsDisplay = new window.google.maps.DirectionsRenderer();
+        this.directionsDisplay.setMap(this.$refs.map.$mapObject);
+        this.directionsDisplay.set("directions", null);
+        this.directionsService.route(
+          {
+            origin: textArr[0],
+            destination: textArr[textArr.length - 1],
+            waypoints,
+            travelMode: window.google.maps.DirectionsTravelMode.DRIVING
+          },
+          (response, status) => {
+            if (status === "OK") {
+              localStorage.textArr = JSON.stringify(response);
+              this.directionsDisplay.setDirections(response);
+            }
+          }
+        );
+      });
     }
   }
   // computed() {
