@@ -11,7 +11,9 @@
             id="map-icon"
             src="https://img.icons8.com/ios-glyphs/30/000000/google-maps.png"
         /></router-link>
-        <div class="weather">{{ item.weather }}</div>
+        <div class="weather" v-show="checkDate(item.unixtime, indexDay)">
+          {{ item.weather }}
+        </div>
       </div>
       <div class="itineraryWrap">
         <button class="addBtn" v-on:click="openPopUp(indexDay)">+</button>
@@ -29,18 +31,16 @@
                 close
               </i>
             </button>
-            <!-- <button
-              class="deleteBtn"
-              v-on:click="deleteItinerary(indexDay, indexItinerary)"
-            >
-              x
-            </button> -->
             <div>{{ itinerary.text }}</div>
           </div>
         </div>
       </div>
     </div>
-    <popup v-show="this.showPopUp" v-on:closePopUp="closePopUp" />
+    <popup
+      v-show="this.showPopUp"
+      v-on:cancelPopUp="cancelPopUp"
+      v-on:closePopUp="closePopUp"
+    />
   </div>
 </template>
 
@@ -73,6 +73,7 @@ export default {
           day: `DAY ${i + 1} ${date.getMonth() +
             1}/${date.getDate()}/${date.getFullYear()}`,
           weather: "",
+          unixtime: date.getTime() / 1000,
           itinerary: []
         });
         date.setDate(date.getDate() + 1);
@@ -81,16 +82,38 @@ export default {
     getWeather() {
       axios
         .get(
-          "api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=01cd0fb825adbf948e05b406259dddf5"
+          "https://community-open-weather-map.p.rapidapi.com/forecast/daily",
+          {
+            headers: {
+              "x-rapidapi-host": "community-open-weather-map.p.rapidapi.com",
+              "x-rapidapi-key":
+                "f8458b1c78msh0cabb0870fc79a6p1d44adjsn84de5db4361c"
+            },
+            params: {
+              q: "san francisco,us",
+              cnt: "17"
+            }
+          }
         )
         .then(response => {
           this.weather = response.data;
           localStorage.weather = response.data;
         });
     },
+    checkDate(day, index) {
+      this.weather.list.forEach(item => {
+        if (item.dt - 24 * 60 * 60 < day && day <= item.dt) {
+          this.days[index].weather = item.weather[0].main;
+        }
+      });
+      return true;
+    },
     openPopUp(index) {
       this.selectedButton = index;
       this.showPopUp = true;
+    },
+    cancelPopUp() {
+      this.showPopUp = false;
     },
     closePopUp(plan) {
       const selectedIndex = this.selectedButton;
