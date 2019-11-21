@@ -14,11 +14,11 @@
             alt="Weather icon"
           />
         </div>
-        <router-link to="/map"
+        <!-- <router-link to="/map"
           ><img
             id="map-icon"
             src="https://img.icons8.com/ios-glyphs/30/000000/google-maps.png"
-        /></router-link>
+        /></router-link> -->
       </div>
       <div class="itineraryWrap">
         <button class="addBtn" v-on:click="openPopUp(indexDay)">+</button>
