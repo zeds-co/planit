@@ -14,11 +14,11 @@
             alt="Weather icon"
           />
         </div>
-        <router-link to="/map"
+        <!-- <router-link to="/map"
           ><img
             id="map-icon"
             src="https://img.icons8.com/ios-glyphs/30/000000/google-maps.png"
-        /></router-link>
+        /></router-link> -->
       </div>
       <div class="itineraryWrap">
         <button class="addBtn" v-on:click="openPopUp(indexDay)">+</button>
@@ -64,7 +64,9 @@ export default {
     days: [],
     duration: localStorage.duration,
     startDate: localStorage.tripStart,
-    endDate: localStorage.tripEnd
+    endDate: localStorage.tripEnd,
+    countryCode: localStorage.countryCode,
+    city: localStorage.city
   }),
   mounted() {
     this.createDays(this.duration);
@@ -95,7 +97,8 @@ export default {
                 "f8458b1c78msh0cabb0870fc79a6p1d44adjsn84de5db4361c"
             },
             params: {
-              q: "san francisco,us",
+              // q: "san francisco,us",
+              q: `${this.city},${this.countryCode}`,
               cnt: "17"
             }
           }
