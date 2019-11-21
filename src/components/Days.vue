@@ -14,11 +14,11 @@
             alt="Weather icon"
           />
         </div>
-        <!-- <router-link to="/map"
+        <router-link :to="`/map/${indexDay}`"
           ><img
             id="map-icon"
             src="https://img.icons8.com/ios-glyphs/30/000000/google-maps.png"
-        /></router-link> -->
+        /></router-link>
       </div>
       <div class="itineraryWrap">
         <button class="addBtn" v-on:click="openPopUp(indexDay)">+</button>
@@ -132,6 +132,7 @@ export default {
       const selectedIndex = this.selectedButton;
       this.showPopUp = false;
       this.days[selectedIndex].itinerary.push({ text: plan });
+      localStorage.days = JSON.stringify(this.days);
     },
     deleteItinerary(indexDay, indexItinerary) {
       this.days[indexDay].itinerary.splice(indexItinerary, 1);

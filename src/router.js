@@ -10,7 +10,7 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
-      path: "/map",
+      path: "/map/:indexDay",
       name: "Map",
       component: Map
     },

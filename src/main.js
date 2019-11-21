@@ -1,5 +1,6 @@
 import Vue from "vue";
 import App from "./App.vue";
+import * as VueGoogleMaps from "vue2-google-maps";
 import router from "./router.js";
 
 import GAuth from "vue-google-oauth2";
@@ -12,6 +13,13 @@ const gauthOption = {
 
 Vue.use(GAuth, gauthOption);
 Vue.config.productionTip = false;
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: "AIzaSyDJ3sPnmTBMN1DZGJBX9gxuNg-O9mgHOAo",
+    libraries: "geometry,drawing,places"
+  }
+});
 
 new Vue({
   router,
