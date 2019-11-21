@@ -64,7 +64,9 @@ export default {
     days: [],
     duration: localStorage.duration,
     startDate: localStorage.tripStart,
-    endDate: localStorage.tripEnd
+    endDate: localStorage.tripEnd,
+    countryCode: localStorage.countryCode,
+    city: localStorage.city
   }),
   mounted() {
     this.createDays(this.duration);
@@ -95,7 +97,8 @@ export default {
                 "f8458b1c78msh0cabb0870fc79a6p1d44adjsn84de5db4361c"
             },
             params: {
-              q: "san francisco,us",
+              // q: "san francisco,us",
+              q: `${this.city},${this.countryCode}`,
               cnt: "17"
             }
           }

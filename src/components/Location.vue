@@ -48,7 +48,7 @@ export default {
       const countryCode = string.slice(0, 2);
       const countryName = string.slice(2);
       this.$emit("country-change", countryName);
-
+      localStorage.countryCode = countryCode;
       const cities = await axios.get(
         `https://wft-geo-db.p.rapidapi.com/v1/geo/cities?limit=1000&countryIds=${countryCode}`,
         {
