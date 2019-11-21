@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://user-images.githubusercontent.com/5979966/69343372-e0972280-0cb0-11ea-9b23-c8640998ef56.png"  style="width:200px" alt="TOP PAGE">
+<img src="https://user-images.githubusercontent.com/5979966/69343372-e0972280-0cb0-11ea-9b23-c8640998ef56.png" width="30%" alt="TOP PAGE">
 </p>
 <h3 align="center">Straight forward trip itinerary</h3>
 
