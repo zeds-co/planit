@@ -9,10 +9,10 @@
         <i class="material-icons moneyIcon">attach_money</i>
         <div>
           <div class="exchangeRate">
-            {{ `1 ${fromCurrency} = ${exchangeRate1} ${toCurrency}` }}
+            {{ `${currency} ${fromCurrency} ${equal} ${exchangeRate1} ${toCurrency}` }}
           </div>
           <div class="exchangeRate">
-            {{ `1 ${toCurrency} = ${exchangeRate2} ${fromCurrency}` }}
+            {{ `${currency} ${toCurrency} ${equal} ${exchangeRate2} ${fromCurrency}` }}
           </div>
         </div>
       </div>
@@ -30,13 +30,15 @@ export default {
   data: () => ({
     country: null,
     city: null,
-    tripStart: null,
-    tripEnd: null,
+    tripStart: localStorage.tripStart,
+    tripEnd: localStorage.tripEnd,
     duration: null,
-    fromCurrency: null,
-    toCurrency: null,
-    exchangeRate1: null,
-    exchangeRate2: null
+    currency: "",
+    equal: "",
+    fromCurrency: "",
+    toCurrency: "",
+    exchangeRate1: "",
+    exchangeRate2: ""
   }),
   mounted() {
     this.country = localStorage.country;
@@ -46,7 +48,7 @@ export default {
 
     const start = new Date(localStorage.tripStart);
     const end = new Date(localStorage.tripEnd);
-    this.duration = (end.getTime() - start.getTime()) / 86400000;
+    this.duration = 1 + Number((end.getTime() - start.getTime())) / 86400000;
 
     this.toCurrency = countryDetails.filter(
       item => item.country === localStorage.country
@@ -79,6 +81,8 @@ export default {
         }
       );
       this.exchangeRate2 = exchangeRate2.data.toFixed(3);
+      this.currency = 1;
+      this.equal = "=";
     },
     async fetchUserLocationInfo() {
       let ipAddress = await axios("https://api.ipify.org/?format=json");
