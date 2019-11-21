@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router.js";
 
 import GAuth from "vue-google-oauth2";
+
 const gauthOption = {
   clientId: "CLIENT_ID.apps.googleusercontent.com",
   scope: "profile email",
