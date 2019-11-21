@@ -9,7 +9,7 @@
         <div class="weather" v-show="checkDate(item.unixtime, indexDay)">
           <img
             v-if="item.weatherIcon"
-            id="wicon"
+            class="wicon"
             :src="item.weatherIcon"
             alt="Weather icon"
           />
@@ -252,6 +252,9 @@ export default {
 }
 button:focus {
   outline: 0;
+}
+.weather {
+  line-height: 15px;
 }
 @media screen and (max-width: 480px) {
   .contents {
