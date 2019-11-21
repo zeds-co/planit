@@ -94,29 +94,37 @@ export default {
       return position;
     },
     async getDirection(textArr) {
-      const waypoints = textArr.slice(1, textArr.length - 1).map(item => ({
-        location: item,
-        stopover: true
-      }));
+      let query = {};
+      if (textArr.length === 2) {
+        query = {
+          origin: textArr[0],
+          destination: textArr[1],
+          travelMode: window.google.maps.DirectionsTravelMode.DRIVING
+        };
+      } else if (textArr.length > 2) {
+        const waypoints = textArr.slice(1, textArr.length - 1).map(item => ({
+          location: item,
+          stopover: true
+        }));
+        query = {
+          origin: textArr[0],
+          destination: textArr[textArr.length - 1],
+          waypoints,
+          travelMode: window.google.maps.DirectionsTravelMode.DRIVING
+        };
+      }
+
       this.$gmapApiPromiseLazy().then(() => {
         this.directionsService = new window.google.maps.DirectionsService();
         this.directionsDisplay = new window.google.maps.DirectionsRenderer();
         this.directionsDisplay.setMap(this.$refs.map.$mapObject);
         this.directionsDisplay.set("directions", null);
-        this.directionsService.route(
-          {
-            origin: textArr[0],
-            destination: textArr[textArr.length - 1],
-            waypoints,
-            travelMode: window.google.maps.DirectionsTravelMode.DRIVING
-          },
-          (response, status) => {
-            if (status === "OK") {
-              localStorage.textArr = JSON.stringify(response);
-              this.directionsDisplay.setDirections(response);
-            }
+        this.directionsService.route(query, (response, status) => {
+          if (status === "OK") {
+            localStorage.textArr = JSON.stringify(response);
+            this.directionsDisplay.setDirections(response);
           }
-        );
+        });
       });
     }
   }
