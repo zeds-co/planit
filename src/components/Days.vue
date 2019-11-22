@@ -97,7 +97,6 @@ export default {
                 "f8458b1c78msh0cabb0870fc79a6p1d44adjsn84de5db4361c"
             },
             params: {
-              // q: "san francisco,us",
               q: `${this.city},${this.countryCode}`,
               cnt: "17"
             }
@@ -106,19 +105,23 @@ export default {
         .then(response => {
           this.weather = response.data;
           localStorage.weather = response.data;
+        })
+        .catch(error => {
+          this.weather = error;
         });
     },
     checkDate(day, index) {
-      this.weather.list.forEach(item => {
-        if (item.dt <= day && day < item.dt + 24 * 60 * 60) {
-          this.days[index].weather = item.weather[0].main;
-          this.days[index].weatherIcon =
-            "http://openweathermap.org/img/w/" + item.weather[0].icon + ".png";
-          // this.days[index].weather = new Date(item.dt * 1000).toLocaleString(
-          //   "us"
-          // );
-        }
-      });
+      if (this.weather) {
+        this.weather.list.forEach(item => {
+          if (item.dt <= day && day < item.dt + 24 * 60 * 60) {
+            this.days[index].weather = item.weather[0].main;
+            this.days[index].weatherIcon =
+              "http://openweathermap.org/img/w/" +
+              item.weather[0].icon +
+              ".png";
+          }
+        });
+      }
       return true;
     },
     openPopUp(index) {
