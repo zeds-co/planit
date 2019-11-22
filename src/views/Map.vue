@@ -7,13 +7,13 @@
       ref="map"
       style="width: 100%; height: 300px"
     >
-      <!--GmapMarker
+      <GmapMarker
         v-for="(task, indexTask) in itinerary"
         :ref="indexTask"
         :key="indexTask"
         :position="task.position"
         :icon="'http://maps.google.com/mapfiles/ms/icons/orange-dot.png'"
-      /-->
+      />
     </GmapMap>
     <div class="dayWrap">
       <div class="dayHeader">
@@ -50,10 +50,7 @@ export default {
       country: "",
       indexDay: "",
       zoom: 13,
-      center: {
-        lat: 31.2304,
-        lng: 121.4737
-      },
+      center: {},
       day: "",
       weather: "",
       itinerary: []
@@ -76,13 +73,24 @@ export default {
           locationInfoArr[index].data.candidates[0].geometry.location)
     );
     this.itinerary = itinerary;
-
+    this.center = await this.getCenter();
     const locations = this.itinerary.map(item => item.text);
-
+    localStorage.locations = locations;
     this.getDirection(locations);
-    localStorage.arr = JSON.stringify(this.itinerary);
+    localStorage.itinerary = JSON.stringify(this.itinerary);
   },
   methods: {
+    async getCenter() {
+      let searchString = [];
+      searchString.push(this.city);
+      searchString.push(this.country);
+      searchString = searchString.join("%20");
+      const center = await axios.get(
+        `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${searchString}&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyDJ3sPnmTBMN1DZGJBX9gxuNg-O9mgHOAo`
+      );
+      localStorage.center = JSON.stringify(center);
+      return center.data.candidates[0].geometry.location;
+    },
     async getPosition(text) {
       let searchString = text.split(" ");
       searchString.push(this.city);
@@ -94,6 +102,7 @@ export default {
       return position;
     },
     async getDirection(textArr) {
+      localStorage.textArr = textArr;
       let query = {};
       if (textArr.length === 2) {
         query = {
@@ -121,7 +130,7 @@ export default {
         this.directionsDisplay.set("directions", null);
         this.directionsService.route(query, (response, status) => {
           if (status === "OK") {
-            localStorage.textArr = JSON.stringify(response);
+            localStorage.response = JSON.stringify(response);
             this.directionsDisplay.setDirections(response);
           }
         });
