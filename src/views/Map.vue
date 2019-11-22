@@ -167,11 +167,12 @@ export default {
 }
 
 .date {
+  margin: 10px;
 }
 
 .dayHeader {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   margin: 15px 15px 0px 15px;
   font-size: 20px;
