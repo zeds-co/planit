@@ -7,13 +7,15 @@
       ref="map"
       style="width: 100%; height: 300px"
     >
-      <GmapMarker
-        v-for="(task, indexTask) in itinerary"
-        :ref="indexTask"
-        :key="indexTask"
-        :position="task.position"
-        :icon="'http://maps.google.com/mapfiles/ms/icons/orange-dot.png'"
-      />
+      <div v-if="!foundDirection">
+        <GmapMarker
+          v-for="(task, indexTask) in itinerary"
+          :ref="indexTask"
+          :key="indexTask"
+          :position="task.position"
+          :icon="'http://maps.google.com/mapfiles/ms/icons/orange-dot.png'"
+        />
+      </div>
     </GmapMap>
     <div class="dayWrap">
       <div class="dayHeader">
@@ -53,7 +55,8 @@ export default {
       center: {},
       day: "",
       weather: "",
-      itinerary: []
+      itinerary: [],
+      foundDirection: false
     };
   },
   async created() {
@@ -130,6 +133,7 @@ export default {
         this.directionsDisplay.set("directions", null);
         this.directionsService.route(query, (response, status) => {
           if (status === "OK") {
+            this.foundDirection = true;
             localStorage.response = JSON.stringify(response);
             this.directionsDisplay.setDirections(response);
           }
