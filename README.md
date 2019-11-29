@@ -16,7 +16,7 @@ You can check out the [app](https://planit-e21d2.web.app/) deployed by Google Fi
 To clone and run this application, you'll need Git and Node.js (which comes with yarn) installed on your computer.
 From your command line:
 
-## Downloading and installing steps
+## Download
 
 1. Clone this repository
 
@@ -35,33 +35,33 @@ From your command line:
    $ yarn
    ```
 
-## Other command
+## Other Commands
 
-## setup
+## Setup
 
 ```
 $ yarn install
 ```
 
-### compiles and hot-reloads for development
+### Compiles and Hot-reloads for Development
 
 ```
 # yarn serve
 ```
 
-### compiles and minifies for production
+### Compiles and Minifies for Production
 
 ```
 # yarn build
 ```
 
-### lints and fixes files
+### Lints and Fixes Files
 
 ```
 $ yarn lint
 ```
 
-# customize config
+# Customize Configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
