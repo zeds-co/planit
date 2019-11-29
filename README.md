@@ -1,11 +1,11 @@
 <p align="center">
 <img src="https://user-images.githubusercontent.com/5979966/69343372-e0972280-0cb0-11ea-9b23-c8640998ef56.png" width="30%" alt="TOP PAGE">
 </p>
-<h3 align="center">Straight forward trip itinerary</h3>
+<h3 align="center">Intuitive Trip Itinerary!</h3>
 
 # About
 
-You can check out this [app](https://planit-e21d2.web.app/).
+You can check out the [app](https://planit-e21d2.web.app/) deployed by Google Firebase.
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/5979966/69343621-4c798b00-0cb1-11ea-8219-b2b4afcb41bd.gif" alt="TOP PAGE">
