@@ -14,7 +14,7 @@
     "express": "^4.17.1",
     "firebase": "^7.4.0",
     "lodash": "^4.17.15",
-    "luxon": "^1.21.2",
+    "luxon": "^1.28.1",
     "moment": "^2.24.0",
     "vue": "^2.6.10",
     "vue-datetime": "^1.0.0-beta.11",
